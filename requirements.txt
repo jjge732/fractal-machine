@@ -1,0 +1,4 @@
+"pygame"
+"tkinter"
+"SQLAlchemy"
+"postgres"
