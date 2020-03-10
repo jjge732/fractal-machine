@@ -4,7 +4,7 @@ from connection import config
 
 class Image:
     @staticmethod
-    def add_image(data: str) -> int:
+    def add_image(file_name: str) -> int:
         """Insert a new image into the images table"""
         sql_command = """
             INSERT INTO images(data)
