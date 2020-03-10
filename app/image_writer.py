@@ -13,7 +13,8 @@ class Image:
         count = 0
         while True:
             try:
-                image = open(f"{ROOT}/images/demofile{f'-{count}' if count != 0 else ''}.svg", "x")
+                file_name = f"{ROOT}/images/demofile{f'-{count}' if count != 0 else ''}.svg"
+                image = open(file_name, "x")
                 break
             except Exception:
                 count += 1
@@ -34,3 +35,4 @@ class Image:
 
         if image is not None:
             image.close()
+            print(f"Image successfully written as {file_name}")
