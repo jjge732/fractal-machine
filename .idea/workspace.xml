@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/image_writer.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/image_writer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,10 +70,10 @@
     </state>
     <state x="799" y="236" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1583725399698" />
     <state x="799" y="232" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.798@0.23.1440.798" timestamp="1583623562495" />
-    <state x="399" y="273" key="com.intellij.ide.util.TipDialog" timestamp="1583810599418">
-      <screen x="0" y="23" width="1440" height="798" />
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1583852771819">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1583798750104" />
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1583852771819" />
     <state x="399" y="273" key="com.intellij.ide.util.TipDialog/0.23.1440.798@0.23.1440.798" timestamp="1583810599418" />
     <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583811357414">
       <screen x="0" y="0" width="1440" height="900" />
