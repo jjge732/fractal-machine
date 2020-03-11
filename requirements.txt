@@ -1,4 +1,5 @@
 fpdf
 config
 pygame
-tkinter
+psycopg2
+# tkinter
