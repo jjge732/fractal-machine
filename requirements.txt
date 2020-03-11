@@ -1,3 +1,4 @@
+fpdf
 config
 pygame
 tkinter

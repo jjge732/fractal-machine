@@ -1,12 +1,23 @@
 import psycopg2
-from connection import config
+from connection.config import config
 
 
+# TODO: decide if we want this
 # TODO: create method for adding images to user, finding images by user, and deleting images from user
 class User:
+    """Class for """
     @staticmethod
     def add_user(username: str, password: str) -> int:
-        """Insert a new user into the users table"""
+        """Insert a new user into the users table
+
+            Args:
+                username: The name of the user to add to the users table
+                password: The user's password
+
+            Returns:
+                The id of the user added to the users table
+
+        """
         sql_command = """
             INSERT INTO users(username, password)
                  VALUES(%s) RETURNING id;
@@ -32,7 +43,15 @@ class User:
 
     @staticmethod
     def find_user(username: str) -> dict:
-        """Find a user in the users table"""
+        """Find a user in the users table
+
+            Args:
+                username: The name of the user in the users table
+
+            Returns:
+                Data of the user stored in the users table
+
+        """
         sql_command = """
                 SELECT * FROM users WHERE username is (%s);
                 """
@@ -57,7 +76,14 @@ class User:
 
     @staticmethod
     def delete_user(username: str) -> bool:
-        """Delete a user from the users table"""
+        """Delete a user from the users table
+
+            Args:
+                username: The name of the user to delete
+
+            Returns:
+                True if the user was deleted or False if they were not
+        """
         sql_command = """
             DELETE FROM users WHERE id is (%s);
             """

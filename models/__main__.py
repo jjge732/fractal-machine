@@ -1,9 +1,9 @@
 import psycopg2
-from config import config
+from connection.config import config
 
 
 def create_tables() -> None:
-    """ Create tables in the postgres database"""
+    """Create tables in the postgres database"""
     commands = (
         """
         CREATE TABLE images(
@@ -20,7 +20,7 @@ def create_tables() -> None:
         );
         """
     )
-    conn = None
+    connection = None
     try:
         params = config()
         connection = psycopg2.connect(**params)
@@ -28,7 +28,7 @@ def create_tables() -> None:
         for command in commands:
             cursor.execute(command)
         cursor.close()
-        conn.commit()
+        connection.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
