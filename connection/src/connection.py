@@ -1,5 +1,5 @@
 import psycopg2
-from fractal_connections import config
+from connection import config
 
 
 def connect() -> None:

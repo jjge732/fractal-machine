@@ -1,7 +1,7 @@
 import setuptools
 
 setuptools.setup(
-    name='fractal_connections',
+    name='connections',
     version='0.1dev',
     package_dir={'': 'src'},
     packages=setuptools.find_packages("src"),

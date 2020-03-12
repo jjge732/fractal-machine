@@ -1,5 +1,6 @@
 import psycopg2
-from fractal_connections import config
+
+from connection import config
 
 
 def create_tables() -> None:
@@ -8,7 +9,7 @@ def create_tables() -> None:
         """
         CREATE TABLE images(
             id INT PRIMARY KEY,
-            data VARCHAR (50) UNIQUE NOT NULL
+            data VARCHAR (55) UNIQUE NOT NULL
         );
         """,
         """ 

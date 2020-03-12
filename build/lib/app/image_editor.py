@@ -79,6 +79,7 @@ class Image:
             Args:
                 colored_square_code: The encoded colored square.
                     Encoded using hex color codes in 9 chunks each of length 3 or 6
+                    Obtained from the database.
 
             Returns:
                 List of each color code

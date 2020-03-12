@@ -1,5 +1,0 @@
-setup.py
-src/fractal_connections.egg-info/PKG-INFO
-src/fractal_connections.egg-info/SOURCES.txt
-src/fractal_connections.egg-info/dependency_links.txt
-src/fractal_connections.egg-info/top_level.txt

@@ -2,9 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__main__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/image_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/connection.egg-info/PKG-INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/connection.egg-info/SOURCES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/connection.egg-info/dependency_links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/connection.egg-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection/src/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/fractal_connections.egg-info/PKG-INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/fractal_connections.egg-info/SOURCES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/fractal_connections.egg-info/dependency_links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/connection/src/fractal_connections.egg-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/controller.egg-info/PKG-INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/controller.egg-info/SOURCES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/controller.egg-info/dependency_links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/controller.egg-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/fractal_controller.egg-info/PKG-INFO" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/fractal_controller.egg-info/SOURCES.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/fractal_controller.egg-info/dependency_links.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/fractal_controller.egg-info/top_level.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller/src/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/src/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__main__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +55,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/connection" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/controller/src" />
       <recent name="$PROJECT_DIR$/connection/src" />
@@ -76,10 +101,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="507" y="212" key="FileChooserDialogImpl/0.0.1440.900@0.0.1440.900" timestamp="1583969460487" />
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1583968256980">
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1584028971918">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1583968256980" />
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584028971918" />
     <state x="399" y="273" key="com.intellij.ide.util.TipDialog/0.23.1440.798@0.23.1440.798" timestamp="1583810599418" />
     <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583811357414">
       <screen x="0" y="0" width="1440" height="900" />
