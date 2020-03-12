@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/fractal-machine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fractal-machine.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__main__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/image_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection/src/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection/src/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/connection/src/database.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/connection/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/src/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/src/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__main__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
