@@ -2,35 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/encryption/encryption.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/create_tables.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/controller/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/image_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/build/lib/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/app/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/build/lib/app/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/build/lib/app/image_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/lib/images/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/build/lib/images/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection.egg-info/PKG-INFO" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection.egg-info/SOURCES.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection.egg-info/dependency_links.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection.egg-info/top_level.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/src/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/src/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/src/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/connection/src/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/src/database.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/src/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/src/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controller/src/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/src/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/images/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/models/create_tables.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/seed.sql" beforeDir="false" afterPath="$PROJECT_DIR$/project/sql/seed.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/e2e" beforeDir="false" afterPath="$PROJECT_DIR$/project/tests/e2e" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/integration" beforeDir="false" afterPath="$PROJECT_DIR$/project/tests/integration" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/image_editor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/connection/setup.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/connection/src/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/connection/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/connection/src/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/connection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/connection/src/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/database.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/controller/src/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/image.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/controller/src/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/models/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/models/create_tables.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +44,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/project/controller" />
+      <recent name="$PROJECT_DIR$/project/connection" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/project" />
       <recent name="$PROJECT_DIR$/controller/src" />
-      <recent name="$PROJECT_DIR$/connection/src" />
-      <recent name="$PROJECT_DIR$/connection" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/connection" />
@@ -110,10 +94,11 @@
     </state>
     <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584028971918" />
     <state x="399" y="273" key="com.intellij.ide.util.TipDialog/0.23.1440.798@0.23.1440.798" timestamp="1583810599418" />
-    <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1583811357414">
-      <screen x="0" y="0" width="1440" height="900" />
+    <state x="509" y="355" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584046581696">
+      <screen x="0" y="23" width="1440" height="798" />
     </state>
     <state x="509" y="374" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900@0.0.1440.900" timestamp="1583811357414" />
+    <state x="509" y="355" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.798@0.23.1440.798" timestamp="1584046581696" />
     <state x="386" y="85" width="667" height="729" key="find.popup" timestamp="1583897879587">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

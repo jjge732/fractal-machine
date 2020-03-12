@@ -5,7 +5,7 @@ import os
 ROOT = os.environ.get("FRACTAL_MACHINE_ROOT")
 
 
-def config(filename: str = f'{ROOT}/connection/database.ini', section: str ='postgresql') -> dict:
+def config(filename: str = f'{ROOT}/project/connection/database.ini', section: str ='postgresql') -> dict:
     """Creates the configuration for the postres database.
 
     Args:

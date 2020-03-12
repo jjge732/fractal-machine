@@ -1,3 +1,3 @@
-from project.models.create_tables import create_tables
+from project.controller.image import Image
 
-create_tables()
+print(Image.add_image("000" "000" "FFF" "000" "FFF" "000" "FFF" "000" "000"))

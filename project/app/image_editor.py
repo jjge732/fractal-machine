@@ -29,7 +29,7 @@ class Image:
         print(f"Creating a square of side length: {square_side_length}")
         while True:
             try:
-                file_name = f"{ROOT}/images/{f'{file_name}-{count}' if count != 0 else ''}.svg"
+                file_name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else ''}.svg"
                 image = open(file_name, "x")
                 break
             except Exception:

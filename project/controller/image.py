@@ -1,5 +1,5 @@
 import psycopg2
-from connection.src.config import *
+from project.connection.config import config
 
 
 class Image:
@@ -22,6 +22,7 @@ class Image:
                  VALUES(%s) RETURNING id;
             """
         connection = None
+        image_id = None
         try:
             params = config()
             connection = psycopg2.connect(**params)

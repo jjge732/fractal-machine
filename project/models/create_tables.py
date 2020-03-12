@@ -1,9 +1,6 @@
 import psycopg2
 
-from ..connection.src.config import *
-# sys.path.insert(1, './connection/src')
-
-# import config
+from project.connection.config import config
 
 
 def create_tables() -> None:
@@ -11,7 +8,7 @@ def create_tables() -> None:
     commands = (
         """
         CREATE TABLE images(
-            id INT PRIMARY KEY,
+            id SERIAL PRIMARY KEY,
             data VARCHAR (55) UNIQUE NOT NULL
         );
         """,
