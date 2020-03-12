@@ -1,5 +1,5 @@
 import psycopg2
-from connection import config
+from connection.src.config import *
 
 
 class Image:
@@ -40,11 +40,11 @@ class Image:
         return image_id if not None else -1
 
     @staticmethod
-    def retrieve_image(id: str) -> str:
+    def retrieve_image(image_id: str) -> str:
         """Retrieve an image code from the database by it's id
 
         Args:
-            id: The id of the image to retrieve
+            image_id: The id of the image to retrieve
 
         Returns:
             The colored_square_code of the image
@@ -60,7 +60,7 @@ class Image:
             params = config()
             connection = psycopg2.connect(**params)
             cursor = connection.cursor()
-            cursor.execute(sql_command, id)
+            cursor.execute(sql_command, image_id)
             data = cursor.fetchone()[0]
 
             connection.commit()

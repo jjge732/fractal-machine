@@ -1,0 +1,8 @@
+README.md
+setup.py
+fractal.egg-info/PKG-INFO
+fractal.egg-info/SOURCES.txt
+fractal.egg-info/dependency_links.txt
+fractal.egg-info/not-zip-safe
+fractal.egg-info/top_level.txt
+project/__init__.py

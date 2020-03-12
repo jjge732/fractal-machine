@@ -1,2 +1,2 @@
-images/*
-!images/__init__.py
+project/images/*
+!project/images/__init__.py

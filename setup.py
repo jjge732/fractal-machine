@@ -1,8 +1,9 @@
-import setuptools
+from setuptools import setup
 
-setuptools.setup(
-    name='connection',
-    package='connection',
-    version='0.1dev',
-    packages=setuptools.find_packages("connection"),
-)
+setup(name='fractal',
+      version='0.1',
+      description='Foo',
+      url='https://github.com/jjge732/fractal-machine',
+      author='Bar',
+      packages=['project'],
+      zip_safe=False)

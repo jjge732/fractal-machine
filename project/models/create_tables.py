@@ -1,6 +1,9 @@
 import psycopg2
 
-from connection import config
+from ..connection.src.config import *
+# sys.path.insert(1, './connection/src')
+
+# import config
 
 
 def create_tables() -> None:
