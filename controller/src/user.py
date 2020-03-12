@@ -1,5 +1,5 @@
 import psycopg2
-from connection.config import config
+from connection.src.config import config
 
 
 # TODO: decide if we want this

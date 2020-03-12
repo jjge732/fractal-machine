@@ -11,14 +11,16 @@ class Image:
 
     # TODO: decide way that data should be given to this function from the GUI
     @staticmethod
-    def write_image() -> None:
+    def write_image(color_list: List) -> None:
         """Writes an image in the svg format using data from user input in the GUI
 
             Args:
-                TBD: need to decide format to move image from the GUI to here
+                color_list: List of lists in the form a 3 x 3 or 4 x 4 square
         """
         image = None
         count = 0
+        square_side_length = len(color_list)
+        print(square_side_length)
         while True:
             try:
                 file_name = f"{ROOT}/images/demofile{f'-{count}' if count != 0 else ''}.svg"
@@ -26,21 +28,11 @@ class Image:
                 break
             except Exception:
                 count += 1
-
-        image.write("""
-            <svg width="300" height="300" xmlns="http://www.w3.org/2000/svg">
-                <rect width="100" height="100" x="000" y="000" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="000" y="100" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="000" y="200" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="100" y="000" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="100" y="100" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="100" y="200" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="200" y="000" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="200" y="100" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-                <rect width="100" height="100" x="200" y="200" style="fill:#00f;stroke-width:3;stroke:rgb(0,0,0)"/>
-            </svg>
-        """)
-
+        image_str = f'<svg width="{square_side_length}00" height="{square_side_length}00" xmlns="http://www.w3.org/2000/svg">'
+        for x_index, color_sub_list in enumerate(color_list):
+            for y_index, color in enumerate(color_sub_list):
+                image_str += f'<rect width="100" height="100" x="{x_index}00" y="{y_index}00" style="fill:#{color};stroke-width:3;stroke:rgb(0,0,0)"/>'
+        image.write(f"{image_str}</svg>")
         if image is not None:
             image.close()
             print(f"Image successfully written as {file_name}")
@@ -92,9 +84,9 @@ class Image:
         elif len(colored_square_code) == 54:
             return [{
                 "index": i,
-                "red": int(colored_square_code[i:1], 16),
-                "green": int(colored_square_code[i + 2:i + 3], 16),
-                "blue": int(colored_square_code[i + 4: i + 5], 16)
+                "red": int(colored_square_code[i * 3:i * 3 + 1], 16),
+                "green": int(colored_square_code[i * 3 + 2:i * 3 + 3], 16),
+                "blue": int(colored_square_code[i + 4: i * 3 + 5], 16)
             } for i in range(9)]
         else:
             raise Exception("Invalid color encoding.")

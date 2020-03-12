@@ -1,5 +1,5 @@
 import psycopg2
-from connection.config import config
+from fractal_connections import config
 
 
 def create_tables() -> None:
