@@ -1,5 +1,0 @@
-setup.py
-src/controller.egg-info/PKG-INFO
-src/controller.egg-info/SOURCES.txt
-src/controller.egg-info/dependency_links.txt
-src/controller.egg-info/top_level.txt
