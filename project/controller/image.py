@@ -19,7 +19,7 @@ class Image:
         """
         sql_command = """
             INSERT INTO images(data)
-                 VALUES(%s) RETURNING id;
+                 VALUES ('%s') RETURNING id;
             """
         connection = None
         image_id = None
@@ -27,7 +27,7 @@ class Image:
             params = config()
             connection = psycopg2.connect(**params)
             cursor = connection.cursor()
-            cursor.execute(sql_command, colored_square_code)
+            cursor.execute(sql_command % colored_square_code)
             image_id = cursor.fetchone()[0]
 
             connection.commit()
@@ -53,15 +53,15 @@ class Image:
         """
         sql_command = """
             SELECT * FROM images
-            WHERE (id = %s)
-            RETURNING data;
+            WHERE (id = %d);
         """
         connection = None
+        data = None
         try:
             params = config()
             connection = psycopg2.connect(**params)
             cursor = connection.cursor()
-            cursor.execute(sql_command, image_id)
+            cursor.execute(sql_command % image_id)
             data = cursor.fetchone()[0]
 
             connection.commit()

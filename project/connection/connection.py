@@ -1,5 +1,5 @@
 import psycopg2
-from connection.src.config import *
+from connection.config import config
 
 
 def connect() -> None:

@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/create_tables.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/controller/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/image_editor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/connection/setup.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/connection/src/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/connection/src/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/connection/src/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/connection/src/database.ini" beforeDir="false" afterPath="$PROJECT_DIR$/project/connection/database.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/controller/src/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/image.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/controller/src/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/models/create_tables.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/models/create_tables.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/controller/image.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/controller/image.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
