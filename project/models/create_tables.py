@@ -4,7 +4,12 @@ from project.connection.config import config
 
 
 def create_tables() -> None:
-    """Create tables in the postgres database"""
+    """Create tables in the postgres database
+
+        Returns:
+            (Re-)Creates the users and images table in the fractal-machine database.
+
+    """
     commands = (
         """
         DROP TABLE IF EXISTS users;

@@ -1,4 +1,5 @@
 import psycopg2
+
 from project.connection.config import config
 
 
@@ -41,7 +42,7 @@ class Image:
         return image_id if not None else -1
 
     @staticmethod
-    def retrieve_image(image_id: str) -> str:
+    def retrieve_image_by_id(image_id: str) -> str:
         """Retrieve an image code from the database by it's id
 
         Args:
