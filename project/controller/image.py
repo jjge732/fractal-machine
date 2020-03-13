@@ -56,13 +56,13 @@ class Image:
             WHERE (id = %d);
         """
         connection = None
-        data = None
+        color_code = None
         try:
             params = config()
             connection = psycopg2.connect(**params)
             cursor = connection.cursor()
             cursor.execute(sql_command % image_id)
-            data = cursor.fetchone()[0]
+            color_code = cursor.fetchone()[1]
 
             connection.commit()
             cursor.close()
@@ -72,4 +72,4 @@ class Image:
             if connection is not None:
                 connection.close()
 
-        return data or None
+        return color_code or None
