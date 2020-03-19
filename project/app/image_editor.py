@@ -33,14 +33,14 @@ class Image:
                 break
             except Exception:
                 count += 1
-        image_str = Image.fractalate(color_list, degrees_of_fractility)
+        image_str = Image.fractalate([color_list], [degrees_of_fractility])
         image.write(image_str)
         if image is not None:
             image.close()
             print(f"Image successfully written as {name}")
 
     @staticmethod
-    def fractalate(color_list: List, degrees_of_fractility: int, square_side_length: int = None, original_color_list: List = None, original_dof: int = None) -> str:
+    def fractalate(color_list_list: List, degrees_of_fractility_list: List, square_side_length: int = None,) -> str:
         """
 
             Args:
@@ -51,32 +51,33 @@ class Image:
                 A string of the svg file
 
         """
+
         if square_side_length is None:
-            square_side_length = len(color_list)
-            original_dof = degrees_of_fractility
-            original_color_list = color_list
-        new_square_side_length = square_side_length ** original_dof
+            square_side_length = len(color_list_list[-1])
+
+        new_square_side_length = square_side_length ** degrees_of_fractility_list[-1]
         new_color_list = [[[] for _ in range(new_square_side_length)] for _ in range(new_square_side_length)]
 
         for x, color_sub_list in enumerate(new_color_list):
             for y in range(len(color_sub_list)):
-                denominator = square_side_length ** (degrees_of_fractility - 1)
-                original_denom = square_side_length ** (original_dof - 1)
-                if color_list[int(x / denominator)][int(y / denominator)] == "FFF" or original_color_list[int(x / original_denom)][int(y / original_denom)] == "FFF":
-                    color = "FFF"
-                else:
-                    color = color_list[x % square_side_length][y % square_side_length]
+                for i in range(len(color_list_list)):
+                    denominator = square_side_length ** (degrees_of_fractility_list[i] - 1)
+                    if color_list_list[i][int(x / denominator)][int(y / denominator)] == "FFF":
+                        color = "FFF"
+                        break
+                    else:
+                        color = color_list_list[-1][x % square_side_length][y % square_side_length]
                 new_color_list[x][y] = color
 
-        if degrees_of_fractility > 2:
-            return Image.fractalate(new_color_list, degrees_of_fractility - 1, square_side_length, original_color_list, original_dof)
+        if degrees_of_fractility_list[0] > 2:
+            return Image.fractalate([new_color_list, *color_list_list], [degrees_of_fractility_list[0] - 1, *degrees_of_fractility_list], square_side_length)
 
-        new_square_side_length = 300 * square_side_length
+        new_square_side_length = 600 * square_side_length
         image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg">'
 
         for x, color_sub_list in enumerate(new_color_list):
             for y, color in enumerate(color_sub_list):
-                dimensions = 300 / (square_side_length ** (original_dof - 1))
+                dimensions = 600 / (square_side_length ** (degrees_of_fractility_list[-1] - 1))
                 x_index = x * dimensions
                 y_index = y * dimensions
                 image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'
