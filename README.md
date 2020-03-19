@@ -5,8 +5,13 @@
 fractal-machine
 ├── project                          --> directory for package
 │    ├── app                         --> directory for main functionality of GUI
+│    │   └── __init__.py             --> empty init file
 │    │   └── __main__.py             --> first file to be run (used for testing as of now)
+│    │   └── boardpiece.py           --> 
+│    │   └── game.py                 --> 
+│    │   └── gamebutton.py           --> 
 │    │   └── image_editor.py         --> mainly used for creating images in images directory
+│    │   └── Jelly\ Crazies.ttf      --> 
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
 │    │   └── config.py               --> file for configuring connection to the database
@@ -66,14 +71,12 @@ source ~/.bash_profile
 ```
 
 ## TODO: (not necessarily all of the following)
-- GUI (pygame)
-    - functionality
-    - aesthetics
-- finalize file conversion and get working with input data
-- export files to Downloads
-- make more image file conversions
-- finalize sql tables
-- encryption for user passwords
+- tie GUI to backend
+- fix file conversion
+- export files to Downloads?
+- make more image file conversions?
+- finalize sql tables?
+- encryption for user passwords?
 
 ## FAQ
 ### How do I install homebrew?
