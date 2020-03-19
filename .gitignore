@@ -1,2 +1,4 @@
 project/images/*
 !project/images/__init__.py
+.idea/*
+*/__pycache__

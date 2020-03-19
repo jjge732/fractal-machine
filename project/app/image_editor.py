@@ -11,7 +11,7 @@ class Image:
 
     # TODO: decide way that data should be given to this function from the GUI
     @staticmethod
-    def write_image(color_list: List, file_name: str = "fractal") -> None:
+    def write_image(color_list: List, degrees_of_fractility: int = 1, file_name: str = "fractal") -> None:
         """Writes an image in the svg format using data from user input in the GUI
 
             Args:
@@ -25,33 +25,85 @@ class Image:
         if "." in file_name:
             file_name = file_name.split('.')[0]
         count = 0
-        square_side_length = len(color_list)
-        print(f"Creating a square of side length: {square_side_length}")
+        print(f"Attempting to create the fractal.")
         while True:
             try:
-                file_name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else ''}.svg"
-                image = open(file_name, "x")
+                name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else file_name}.svg"
+                image = open(name, "x")
                 break
             except Exception:
                 count += 1
-        image_str = f'<svg width="{square_side_length}00" height="{square_side_length}00" xmlns="http://www.w3.org/2000/svg">'
-        for x_index, color_sub_list in enumerate(color_list):
-            for y_index, color in enumerate(color_sub_list):
-                image_str += f'<rect width="100" height="100" x="{x_index}00" y="{y_index}00" style="fill:#{color};stroke-width:3;stroke:rgb(0,0,0)"/>'
-        image.write(f"{image_str}</svg>")
+        image_str = Image.fractalate(color_list, degrees_of_fractility)
+        image.write(image_str)
         if image is not None:
             image.close()
-            print(f"Image successfully written as {file_name}")
+            print(f"Image successfully written as {name}")
+
+    @staticmethod
+    def fractalate(color_list: List, degrees_of_fractility: int) -> str:
+        """
+
+            Args:
+                color_list: List of lists in the form a 3 x 3 or 4 x 4 square
+                degrees_of_fractility: Number of times to fractalate
+
+            Returns:
+                A string of the svg file
+
+        """
+        square_side_length = len(color_list)
+        new_square_side_length = square_side_length ** degrees_of_fractility
+        new_color_list = [
+            color_list[index % square_side_length] * new_square_side_length
+            for index in range(new_square_side_length)
+        ]
+
+        square_side_length = len(color_list)
+        if degrees_of_fractility > 1:
+            Image.fract(color_list, new_color_list, square_side_length)
+
+        for sub_list in new_color_list:
+            print(sub_list)
+
+        new_square_side_length = 100 * square_side_length
+        image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg">'
+        for x, color_sub_list in enumerate(new_color_list):
+            for y, color in enumerate(color_sub_list):
+                x_index = int(100 * x / (square_side_length ** (degrees_of_fractility - 1)))
+                y_index = int(100 * y / (square_side_length ** (degrees_of_fractility - 1)))
+                image_str += f'<rect width="{100 / (square_side_length ** (degrees_of_fractility - 1))}" height="{100 / (square_side_length ** (degrees_of_fractility - 1))}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:rgb(0,0,0)"/>'
+        return f"{image_str}</svg>"
+
+    @staticmethod
+    def fract(color_list: List, new_color_list: List, square_side_length: int) -> None:
+        """
+
+        Args:
+            color_list: The original fractal as a list
+            new_color_list: The newly created fractal size as a list
+            square_side_length: The size of the square
+
+        """
+        for x_index, sub_list in enumerate(color_list):
+            for y_index, color in enumerate(sub_list):
+                if color == "FFF":
+                    print(f"x index {x_index} y index {y_index}")
+                    for index_1 in range(square_side_length):
+                        for index_2 in range(square_side_length):
+                            new_color_list[x_index * square_side_length + index_1][
+                                y_index * square_side_length + index_2] = "FFF"
+                            new_color_list[x_index * square_side_length + index_2][
+                                y_index * square_side_length + index_1] = "FFF"
 
     @staticmethod
     def color_code_to_pdf(colored_square_code: str, output_file_name: str = "fractal") -> None:
-        """Method for converting a color_code to a pdf file
+        """Method for converting a color code to a pdf file
 
             Args:
                 colored_square_code: The encoded colored square.
                     Encoded using hex color codes in 9 chunks each of length 3 or 6
                     Obtained from the database.
-                output_file_name:
+                output_file_name: The name of the file that as which the image is saved
 
             Returns:
                 File is output to images directory with the given file name
