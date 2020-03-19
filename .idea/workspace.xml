@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ff95f12-1a2d-4a0d-9cd8-a595c75477be" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/app/Jelly Crazies.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/app/boardpiece.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/app/game.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/app/gamebutton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/app/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/__main__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/app/image_editor.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/app/image_editor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,10 +78,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="507" y="212" key="FileChooserDialogImpl/0.0.1440.900@0.0.1440.900" timestamp="1583969460487" />
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1584578862554">
-      <screen x="0" y="23" width="1440" height="798" />
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1584634449881">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584316078944" />
+    <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1584634449881" />
     <state x="399" y="282" key="com.intellij.ide.util.TipDialog/0.23.1440.798@0.23.1440.798" timestamp="1584578862554" />
     <state x="509" y="355" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584046581696">
       <screen x="0" y="23" width="1440" height="798" />

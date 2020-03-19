@@ -6,14 +6,14 @@ Image.write_image([
     ["000", "000", "FFF"],
     ["000", "FFF", "000"],
     ["FFF", "000", "000"]
-], 2)
+], 5)
 
 Image.write_image([
     ["000", "000", "000", "FFF"],
     ["000", "000", "FFF", "000"],
     ["000", "FFF", "000", "000"],
     ["FFF", "000", "000", "000"],
-], 2)
+], 4)
 # Image.color_code_to_pdf("000" "000" "FFF" "000" "FFF" "000" "FFF" "000" "000")
 
 # print(Image.encode_square([
