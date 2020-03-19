@@ -69,17 +69,17 @@ class Image:
                 new_color_list[x][y] = color
 
         if degrees_of_fractility > 2:
-            return Image.fractalate(new_color_list, degrees_of_fractility - 1, square_side_length, original_color_list, degrees_of_fractility)
+            return Image.fractalate(new_color_list, degrees_of_fractility - 1, square_side_length, original_color_list, original_dof)
 
-        new_square_side_length = 100 * square_side_length
+        new_square_side_length = 300 * square_side_length
         image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg">'
 
         for x, color_sub_list in enumerate(new_color_list):
             for y, color in enumerate(color_sub_list):
-                dimensions = 100 / (square_side_length ** (original_dof - 1))
-                x_index = int(x * dimensions)
-                y_index = int(y * dimensions)
-                image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:rgb(0,0,0)"/>'
+                dimensions = 300 / (square_side_length ** (original_dof - 1))
+                x_index = x * dimensions
+                y_index = y * dimensions
+                image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'
         return f"{image_str}</svg>"
 
     @staticmethod
