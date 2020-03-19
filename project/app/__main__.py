@@ -1,4 +1,6 @@
 from image_editor import Image
+#from game import main as game_main
+#game_array = game_main()
 
 Image.write_image([
     ["000", "000", "FFF"],
