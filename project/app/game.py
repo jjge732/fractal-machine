@@ -1,11 +1,14 @@
 import pygame as pg
 from boardpiece import BoardPiece
 from gamebutton import GameButton
+from image_editor import Image
 
 # colors of board pieces 
-WHITE  = pg.Color(255, 255, 255)
-BLACK  = pg.Color(0, 0, 0)
-RANDOM = pg.Color(255, 175, 50)
+WHITE        = pg.Color(255, 255, 255)
+BLACK        = pg.Color(0, 0, 0)
+RANDOM       = pg.Color(255, 175, 50)
+OTHER        = pg.Color(175, 175, 175)
+SCREEN_COLOR = pg.Color(100, 100, 130)
 
 # ---------------------------------------------------------------------
 # UTILS 
@@ -13,8 +16,8 @@ RANDOM = pg.Color(255, 175, 50)
 # Create the BoardPieces and add them to the sprites_to_board group.
 def makeBoard(length):
     sprites_to_board = pg.sprite.Group()
-    x_start_coord = 200 
-    y_start_coord = 180
+    x_start_coord    = 200 
+    y_start_coord    = 180
     # to make it more centered when clicking between 3x3 and 4x4 
     if length == 3:
         x_start_coord = 250
@@ -52,12 +55,14 @@ def get_board_array(sprites, board_length):
 # Sets up the screen and runs the main game loop 
 def main():
 
+    pg.init()
+
     # setting up the names needed for the display 
     screen   = pg.display.set_mode((800, 800))
     font     = pg.font.Font("Jelly Crazies.ttf", 35) 
     text     = font.render('FRACTAL MACHINE', True, WHITE)
     textRect = text.get_rect() 
-    textRect.center = (400, 100) 
+    textRect.center  = (400, 100) 
 
     # creating the board 
     board_length     = 4
@@ -70,12 +75,15 @@ def main():
     button_y = 650 
 
     buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(     "3x3", RANDOM, (button_x - 404),         button_y) 
-    four_by_four    = GameButton(     "4x4", RANDOM, (button_x - 303),         button_y)
-    invert_button   = GameButton(  "Invert", RANDOM, (button_x - 202),         button_y)
-    clear_button    = GameButton(   "Clear", RANDOM, (button_x - 101),         button_y)
-    exit_button     = GameButton(    "Exit", RANDOM, (button_x - 202),  (button_y + 70))
-    generate_button = GameButton("Generate", RANDOM,         button_x,         button_y)
+    three_by_three  = GameButton(     "3x3",       RANDOM, (button_x - 404),         button_y) 
+    four_by_four    = GameButton(     "4x4",       RANDOM, (button_x - 303),         button_y)
+    invert_button   = GameButton(  "Invert",       RANDOM, (button_x - 202),         button_y)
+    clear_button    = GameButton(   "Clear",       RANDOM, (button_x - 101),         button_y)
+    exit_button     = GameButton(    "EXIT", SCREEN_COLOR, (button_x - 550), (button_y + 100))
+    number_button   = GameButton(       "1", SCREEN_COLOR,         button_x,    (button_y+51))
+    generate_button = GameButton("Generate",       RANDOM,         button_x,         button_y)
+
+    exit_button.change_font("Jelly Crazies.ttf")
 
     buttons.add(three_by_three)
     buttons.add(four_by_four)
@@ -83,6 +91,10 @@ def main():
     buttons.add(invert_button)
     buttons.add(generate_button)
     buttons.add(exit_button)
+    buttons.add(number_button) 
+
+    # counter for the generate buttton
+    click_counter = 0
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -123,15 +135,24 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
                         for sprite in sprites_to_board:
                             sprite.change_color(WHITE)
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Exit"):
+                    # exit button 
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "EXIT"):
                         machine_running = False
+                    # Generate button
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Generate"):
+                        click_counter += 1
+                        if click_counter <= 5:
+                            number_button.update_function(str(click_counter))
+                        else:
+                            click_counter = 0
+
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()
         buttons.update()
 
         # setting up the display 
-        screen.fill((100, 100, 130))
+        screen.fill(SCREEN_COLOR)
         screen.blit(text, textRect) 
         sprites_to_board.draw(screen)
         buttons.draw(screen)
@@ -142,14 +163,20 @@ def main():
     # game_array is produced once the main game loop has ended
     game_array = get_board_array(sprites_to_board, board_length)
 
-    for item in game_array:
-        print(item)
+    print([game_array, click_counter])
 
-    #return game_array 
+    pg.quit()
+
+    return [game_array, click_counter]
 
 # ---------------------------------------------------------------------
-# invoke main & pygame 
+#invoke main & pygame 
 pg.init()
-main()
+game_array = main()
 pg.quit()
+
+#---------------------------------------------------------------------
+#invoke Image_editor 
+Image.write_image(game_array[0], game_array[1])
+
 
