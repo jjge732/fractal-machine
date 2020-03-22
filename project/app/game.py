@@ -186,9 +186,7 @@ def main():
 
 # ---------------------------------------------------------------------
 #invoke main & pygame 
-pg.init()
-game_output= main()
-pg.quit()
+game_output = main()
 
 #---------------------------------------------------------------------
 #invoke Image_editor 
