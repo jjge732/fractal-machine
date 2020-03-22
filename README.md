@@ -6,12 +6,12 @@ fractal-machine
 ├── project                          --> directory for package
 │    ├── app                         --> directory for main functionality of GUI
 │    │   └── __init__.py             --> empty init file
-│    │   └── __main__.py             --> first file to be run (used for testing as of now)
-│    │   └── boardpiece.py           --> 
-│    │   └── game.py                 --> 
-│    │   └── gamebutton.py           --> 
+│    │   └── __main__.py             --> used for testing as of now
+│    │   └── boardpiece.py           --> class that creates boardpieces 
+│    │   └── game.py                 --> main file to run, is the main script for the GUI
+│    │   └── gamebutton.py           --> class that creates the buttons of the game 
 │    │   └── image_editor.py         --> mainly used for creating images in images directory
-│    │   └── Jelly\ Crazies.ttf      --> 
+│    │   └── Jelly\ Crazies.ttf      --> font used in the game
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
 │    │   └── config.py               --> file for configuring connection to the database
@@ -39,7 +39,6 @@ fractal-machine
 ```
 
 ## Setup
-TODO: add to this once everything is working
 
 This app requires postgresql to run. To install with homebrew run:
 ```bash
@@ -63,7 +62,9 @@ CREATE DATABASE fractal_machine;
 CREATE ROLE postgres;
 ALTER ROLE postgres WITH LOGIN;
 ```
-Finally, the project needs to know its location in your file structure in order to run properly.
+
+Before running, complete this step in order to generate the SVG file:
+The project needs to know its location in your file structure in order to run properly.
 To provide this information, add to your bash profile by running this command:
 ```bash
 echo "export FRACTAL_MACHINE_ROOT=$(pwd)" >> ~/.bash_profile
@@ -71,7 +72,7 @@ source ~/.bash_profile
 ```
 
 ## TODO: (not necessarily all of the following)
-- tie GUI to backend
+- tie GUI to backend - Completed. 
 - fix file conversion
 - export files to Downloads?
 - make more image file conversions?
