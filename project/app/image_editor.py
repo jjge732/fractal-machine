@@ -30,15 +30,18 @@ class Image:
         while True:
             try:
                 file_name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else ''}.svg"
+                print("hello")
                 image = open(file_name, "x")
                 break
             except Exception:
                 count += 1
+        print("hey 1")
         image_str = f'<svg width="{square_side_length}00" height="{square_side_length}00" xmlns="http://www.w3.org/2000/svg">'
         for x_index, color_sub_list in enumerate(color_list):
             for y_index, color in enumerate(color_sub_list):
                 image_str += f'<rect width="100" height="100" x="{x_index}00" y="{y_index}00" style="fill:#{color};stroke-width:3;stroke:rgb(0,0,0)"/>'
         image.write(f"{image_str}</svg>")
+        print("hey 2")
         if image is not None:
             image.close()
             print(f"Image successfully written as {file_name}")

@@ -145,11 +145,8 @@ def main():
     for item in game_array:
         print(item)
 
-    #return game_array 
+    return game_array 
 
 # ---------------------------------------------------------------------
-# invoke main & pygame 
-pg.init()
-main()
-pg.quit()
+
 
