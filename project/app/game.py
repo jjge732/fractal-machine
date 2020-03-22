@@ -31,8 +31,8 @@ def makeBoard(length):
 def get_color_str(color):
     color      = str(color)
     color_dict = {   
-    "(255, 255, 255, 255)" : "000", 
-    "(0, 0, 0, 255)"       : "FFF"  }
+    "(255, 255, 255, 255)" : "FFF", 
+    "(0, 0, 0, 255)"       : "000"  }
     return color_dict.get(color)
 
 # returns a 2-D array of the board, "000" for white, "FFF" for black 
