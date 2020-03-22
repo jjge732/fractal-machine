@@ -75,26 +75,30 @@ def main():
     button_y = 650 
 
     buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(     "3x3",       RANDOM, (button_x - 404),         button_y) 
-    four_by_four    = GameButton(     "4x4",       RANDOM, (button_x - 303),         button_y)
-    invert_button   = GameButton(  "Invert",       RANDOM, (button_x - 202),         button_y)
-    clear_button    = GameButton(   "Clear",       RANDOM, (button_x - 101),         button_y)
-    exit_button     = GameButton(    "EXIT", SCREEN_COLOR, (button_x - 550), (button_y + 100))
-    number_button   = GameButton(       "1", SCREEN_COLOR,         button_x,    (button_y+51))
-    generate_button = GameButton("Generate",       RANDOM,         button_x,         button_y)
+    three_by_three  = GameButton(        "3x3",       RANDOM, (button_x - 404),         button_y) 
+    four_by_four    = GameButton(        "4x4",       RANDOM, (button_x - 303),         button_y)
+    invert_button   = GameButton(     "Invert",       RANDOM, (button_x - 202),         button_y)
+    clear_button    = GameButton(      "Clear",       RANDOM, (button_x - 101),         button_y)
+    exit_button     = GameButton(       "EXIT", SCREEN_COLOR, (button_x - 530), (button_y + 100))
+    number_button   = GameButton(          "1", SCREEN_COLOR,  (button_x + 51),         button_y)
+    generate_button = GameButton(  "Fractalfy",       RANDOM,         button_x,         button_y)
+    fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, (button_x + 130), (button_y + 100))
 
     exit_button.change_font("Jelly Crazies.ttf")
+    fractal_buttton.change_font("Jelly Crazies.ttf")
+    number_button.update_size(50,50)
+    fractal_buttton.update_size(295,50)
 
     buttons.add(three_by_three)
     buttons.add(four_by_four)
     buttons.add(clear_button)
     buttons.add(invert_button)
     buttons.add(generate_button)
-    buttons.add(exit_button)
-    buttons.add(number_button) 
+    buttons.add(exit_button) 
 
     # counter for the generate buttton
     click_counter = 0
+    get_fractal_clicked = False
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -139,12 +143,20 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "EXIT"):
                         machine_running = False
                     # Generate button
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Generate"):
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Fractalfy"):
                         click_counter += 1
+                        if click_counter == 1:
+                            buttons.add(number_button)
+                            buttons.add(fractal_buttton)
                         if click_counter <= 5:
                             number_button.update_function(str(click_counter))
                         else:
                             click_counter = 0
+                            buttons.remove(number_button)
+                            buttons.remove(fractal_buttton)
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "GET FRACTAL"):
+                        get_fractal_clicked = True 
+                        machine_running = False
 
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
@@ -167,16 +179,21 @@ def main():
 
     pg.quit()
 
-    return [game_array, click_counter]
+    if get_fractal_clicked:
+        return [game_array, click_counter]
+    else: 
+        return "Not Activated" 
 
 # ---------------------------------------------------------------------
 #invoke main & pygame 
 pg.init()
-game_array = main()
+game_output= main()
 pg.quit()
 
 #---------------------------------------------------------------------
 #invoke Image_editor 
-Image.write_image(game_array[0], game_array[1])
+if isinstance(game_output, list):
+    print(game_output)
+    Image.write_image(game_output[0], game_output[1])
 
 

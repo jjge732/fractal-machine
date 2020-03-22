@@ -29,6 +29,17 @@ class GameButton(pg.sprite.Sprite):
     def get_button_function(self):
         return self.text
 
+    def update_size(self, width, height):
+        self.width    = width
+        self.height   = height
+        self.image    = pg.Surface((self.width , self.height))
+        self.image.fill(self.color)
+        W = self.textSurf.get_width()
+        H = self.textSurf.get_height()
+        self.image.blit(self.textSurf, [self.width/2 - W/2, self.height/2 - H/2])
+        pg.draw.rect(self.image, self.color, [self.x_pos , self.y_pos, self.width, self.height])
+        self.rect = self.image.get_rect(topright = (self.x_pos, self.y_pos))
+
     def update_function(self, new_text):
         self.text     = new_text    
         self.textSurf = self.font.render(self.text, True, (255,255,255))
