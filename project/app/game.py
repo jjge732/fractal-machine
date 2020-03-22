@@ -89,12 +89,12 @@ def main():
     number_button.update_size(50,50)
     fractal_buttton.update_size(295,50)
 
-    buttons.add(three_by_three)
-    buttons.add(four_by_four)
-    buttons.add(clear_button)
-    buttons.add(invert_button)
-    buttons.add(generate_button)
-    buttons.add(exit_button) 
+    buttons.add( three_by_three  )
+    buttons.add( four_by_four    )
+    buttons.add( clear_button    )
+    buttons.add( invert_button   )
+    buttons.add( generate_button )
+    buttons.add( exit_button     ) 
 
     # counter for the generate buttton
     click_counter = 0
@@ -186,14 +186,11 @@ def main():
 
 # ---------------------------------------------------------------------
 #invoke main & pygame 
-pg.init()
 game_output= main()
-pg.quit()
 
 #---------------------------------------------------------------------
 #invoke Image_editor 
 if isinstance(game_output, list):
-    print(game_output)
     Image.write_image(game_output[0], game_output[1])
 
 
