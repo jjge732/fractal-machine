@@ -33,15 +33,11 @@ class Image:
             try:
                 name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else file_name}.svg"
                 image = open(name, "x")
-                print("hello")
                 break
             except Exception:
                 count += 1
-                print("hi")
         image_str = Image.fractalate([color_list], [degrees_of_fractility], square_side_length)
-        print("hey 2")
         image.write(image_str)
-        print("hey 3")
         if image is not None:
             image.close()
             print(f"Image successfully written as {name}")
