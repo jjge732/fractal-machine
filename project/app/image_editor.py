@@ -10,7 +10,7 @@ class Image:
     """Class for writing images to files, encoding and decoding image_codes, and converting image types."""
 
     @staticmethod
-    def write_image(color_list: List, degrees_of_fractility: int = 1, file_name: str = "fractal") -> None:
+    def write_image(color_list: List[List[str]], degrees_of_fractility: int = 1, file_name: str = "fractal") -> None:
         """Writes an image in the svg format using data from user input in the GUI
 
             Args:
@@ -27,27 +27,23 @@ class Image:
         count = 0
         print(f"Attempting to create the fractal.")
         square_side_length = len(color_list)
-        if file_name == "fractal":
-            file_name = f"{file_name}-{square_side_length}x{square_side_length}"
+        # if file_name == "fractal":
+        file_name = f"{file_name}-{square_side_length}x{square_side_length}"
         while True:
             try:
                 name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else file_name}.svg"
                 image = open(name, "x")
-                print("hello")
                 break
             except Exception:
                 count += 1
-                print("hi")
         image_str = Image.fractalate([color_list], [degrees_of_fractility], square_side_length)
-        print("hey 2")
         image.write(image_str)
-        print("hey 3")
         if image is not None:
             image.close()
-            print(f"Image successfully written as {name}")
+            print(f"Image successfully written as {name.split('/')[-1]}")
 
     @staticmethod
-    def fractalate(color_list_list: List, degrees_of_fractility_list: List, square_side_length: int = None) -> str:
+    def fractalate(color_list_list: List[List[List[str]]], degrees_of_fractility_list: List[int], square_side_length: int = None) -> str:
         """Method for creating the new fractal
 
             Args:
@@ -67,7 +63,7 @@ class Image:
             for y in range(len(color_sub_list)):
                 for i in range(len(color_list_list)):
                     denominator = square_side_length ** (degrees_of_fractility_list[i] - 1)
-                    if color_list_list[i][int(x / denominator)][int(y / denominator)] == "FFF":
+                    if color_list_list[i][int(x / denominator)][int(y / denominator)] in ["FFF", "FFFFFF"]:
                         color = "FFF"
                         break
                     else:
@@ -103,7 +99,6 @@ class Image:
                 image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'
         return f"{image_str}</svg>"
 
-    # TODO: make working for all fractal sizes
     @staticmethod
     def color_code_to_pdf(colored_square_code: str, output_file_name: str = "fractal") -> None:
         """Method for converting a color code to a pdf file
