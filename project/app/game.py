@@ -31,8 +31,8 @@ def makeBoard(length):
 def get_color_str(color):
     color      = str(color)
     color_dict = {   
-    "(255, 255, 255, 255)" : "000", 
-    "(0, 0, 0, 255)"       : "FFF"  }
+    "(255, 255, 255, 255)" : "FFF", 
+    "(0, 0, 0, 255)"       : "000"  }
     return color_dict.get(color)
 
 # returns a 2-D array of the board, "000" for white, "FFF" for black 
@@ -81,7 +81,7 @@ def main():
     clear_button    = GameButton(      "Clear",       RANDOM, (button_x - 101),         button_y)
     exit_button     = GameButton(       "EXIT", SCREEN_COLOR, (button_x - 530), (button_y + 100))
     number_button   = GameButton(          "1", SCREEN_COLOR,  (button_x + 51),         button_y)
-    generate_button = GameButton(  "Fractalfy",       RANDOM,         button_x,         button_y)
+    generate_button = GameButton( "Fractalify",       RANDOM,         button_x,         button_y)
     fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, (button_x + 130), (button_y + 100))
 
     exit_button.change_font("Jelly Crazies.ttf")
@@ -142,18 +142,20 @@ def main():
                     # exit button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "EXIT"):
                         machine_running = False
-                    # Generate button
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Fractalfy"):
+                    # fractalify button
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Fractalify"):
                         click_counter += 1
                         if click_counter == 1:
                             buttons.add(number_button)
                             buttons.add(fractal_buttton)
-                        if click_counter <= 5:
+                        # where the limit is set 
+                        if click_counter <= 5: 
                             number_button.update_function(str(click_counter))
                         else:
                             click_counter = 0
                             buttons.remove(number_button)
                             buttons.remove(fractal_buttton)
+                    # get fract button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "GET FRACTAL"):
                         get_fractal_clicked = True 
                         machine_running = False
@@ -186,7 +188,7 @@ def main():
 
 # ---------------------------------------------------------------------
 #invoke main & pygame 
-game_output= main()
+game_output = main()
 
 #---------------------------------------------------------------------
 #invoke Image_editor 
