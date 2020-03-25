@@ -2,6 +2,8 @@ import pygame as pg
 from boardpiece import BoardPiece
 from gamebutton import GameButton
 from image_editor import Image
+from colortile import ColorTile
+import pandas as pd 
 
 # colors of board pieces 
 WHITE        = pg.Color(255, 255, 255)
@@ -11,7 +13,30 @@ OTHER        = pg.Color(175, 175, 175)
 SCREEN_COLOR = pg.Color(100, 100, 130)
 
 # ---------------------------------------------------------------------
+# SETTING UP THE COLORS 
+# importing the color dataframe 
+# RGB_Hex.xlsx was created by webscrap_forcolors.py
+
+color_df = pd.read_excel('RGB_Hex.xlsx')
+
+colors_list = []
+
+for i in range(color_df.shape[0]):
+    temp_color = str(color_df.iloc[i, 0])
+    temp_color = temp_color.replace("(", "")
+    temp_color = temp_color.replace(")", "")
+    temp_list  = temp_color.split(",")
+    temp_rgb   = pg.Color(int(temp_list[0]), int(temp_list[1]), int(temp_list[2]))
+    colors_list.append(temp_rgb)
+
+color_dict = dict()
+for color, i in zip(colors_list, range(color_df.shape[0])):
+    temp_hex = str(color_df.iloc[i, 1])
+    color_dict[str(color)] = temp_hex
+
+# ---------------------------------------------------------------------
 # UTILS 
+
 
 # Create the BoardPieces and add them to the sprites_to_board group.
 def makeBoard(length):
@@ -27,12 +52,21 @@ def makeBoard(length):
             sprites_to_board.add( BoardPiece( (x_start_coord + (x*101), y_start_coord + (y*101)) ) ) 
     return sprites_to_board
 
+#create a color board 
+def makeColorBoard(color_list):
+    colors_to_board = pg.sprite.Group()
+    x_start_coord    = 650
+    y_start_coord    = 180
+    count = 0 
+    for y in range(10):
+        for x in range(10):
+            colors_to_board.add( ColorTile( (x_start_coord + (x*25), y_start_coord + (y*25)), color_list[count]) ) 
+            count+=1
+    return colors_to_board
+
 # matches RGB values to string values used for image processing 
-def get_color_str(color):
+def get_color_str(color, color_dict):
     color      = str(color)
-    color_dict = {   
-    "(255, 255, 255, 255)" : "FFF", 
-    "(0, 0, 0, 255)"       : "000"  }
     return color_dict.get(color)
 
 # returns a 2-D array of the board, "000" for white, "FFF" for black 
@@ -42,7 +76,7 @@ def get_board_array(sprites, board_length):
     inner_array = []
     counter     = 1
     for sprite in sprites:
-        inner_array.append( get_color_str(sprite.get_piece_color()) )
+        inner_array.append( get_color_str(sprite.get_piece_color(), color_dict) )
         if (counter % board_length == 0 ):
             board_array.append(inner_array)
             inner_array = []
@@ -58,7 +92,7 @@ def main():
     pg.init()
 
     # setting up the names needed for the display 
-    screen   = pg.display.set_mode((800, 800))
+    screen   = pg.display.set_mode((1000, 800))
     font     = pg.font.Font("Jelly Crazies.ttf", 35) 
     text     = font.render('FRACTAL MACHINE', True, WHITE)
     textRect = text.get_rect() 
@@ -67,6 +101,7 @@ def main():
     # creating the board 
     board_length     = 4
     sprites_to_board = makeBoard(board_length)
+    colors_to_board  = makeColorBoard(colors_list)
 
     # making the buttons 
     # the weird x values are to make one pixel of space between each button 
@@ -163,12 +198,14 @@ def main():
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()
+        colors_to_board.update()
         buttons.update()
 
         # setting up the display 
         screen.fill(SCREEN_COLOR)
         screen.blit(text, textRect) 
         sprites_to_board.draw(screen)
+        colors_to_board.draw(screen)
         buttons.draw(screen)
 
         # updates the whole display 
