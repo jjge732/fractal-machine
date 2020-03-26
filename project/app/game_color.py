@@ -23,8 +23,7 @@ colors_list = []
 
 for i in range(color_df.shape[0]):
     temp_color = str(color_df.iloc[i, 0])
-    temp_color = temp_color.replace("(", "")
-    temp_color = temp_color.replace(")", "")
+    temp_color = temp_color.replace("(", "").replace(")", "")
     temp_list  = temp_color.split(",")
     temp_rgb   = pg.Color(int(temp_list[0]), int(temp_list[1]), int(temp_list[2]))
     colors_list.append(temp_rgb)
@@ -132,8 +131,8 @@ def main():
     buttons.add( exit_button     ) 
 
     # counter for the generate buttton
-    click_counter = 0
-    get_fractal_clicked = False
+    click_counter        = 0
+    get_fractal_clicked  = False
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -144,6 +143,18 @@ def main():
 
             # If a mouse button was pressed.
             elif event.type == pg.MOUSEBUTTONDOWN:
+
+                # trying to let the user pic their color
+                for color_square in colors_to_board:
+                    if color_square.rect.collidepoint(event.pos):
+                        # making a seperate color button for the chosen color, to help user keep track of drawing color
+                        chosen_color = GameButton("Color", color_square.get_piece_color(), button_x + 175, button_y - 205)
+                        # that way there aren't a bilion "Color" buttons in the sprite group at once
+                        for button in buttons:
+                            if button.get_button_function() == "Color":
+                                buttons.remove(button)
+                        buttons.add(chosen_color)
+            			
                 # Iterate over the sprites in the group.
                 for sprite in sprites_to_board:
                     # Check if the sprite's rect collides with the mouse pos.
@@ -154,6 +165,7 @@ def main():
                         elif str(sprite.get_piece_color()) == "(0, 0, 0, 255)":
                             sprite.change_color(WHITE)
 
+                # Iterate over the buttons in the group.
                 for button in buttons:
                     # creating the invert button 
                     if button.rect.collidepoint(event.pos) and (button.get_button_function() == "Invert"):
@@ -165,7 +177,7 @@ def main():
                     # the 3 by 3 button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "3x3"):
                         sprites_to_board = makeBoard(3)
-                        board_length = 3 #reset the number to get correct dimensions for the 2-D array (game_array)
+                        board_length = 3 # reset the number to get correct dimensions for the 2-D array (game_array)
                     # the 4 by 4 button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "4x4"):
                         sprites_to_board = makeBoard(4)
@@ -218,6 +230,9 @@ def main():
         print(item)
 
     pg.quit()
+
+    for button in buttons:
+        print(button.get_button_function())
 
     if get_fractal_clicked:
         return [game_array, click_counter]
