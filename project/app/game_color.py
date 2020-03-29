@@ -118,6 +118,7 @@ def main():
     generate_button = GameButton( "Fractalify",       RANDOM,         button_x,         button_y)
     fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, (button_x + 130), (button_y + 100))
 
+
     exit_button.change_font("Jelly Crazies.ttf")
     fractal_buttton.change_font("Jelly Crazies.ttf")
     number_button.update_size(50,50)
@@ -130,9 +131,12 @@ def main():
     buttons.add( generate_button )
     buttons.add( exit_button     ) 
 
-    # counter for the generate buttton
-    click_counter        = 0
-    get_fractal_clicked  = False
+    # setting up extra variables 
+    click_counter          = 0
+    get_fractal_clicked    = False
+    origial_setting_option = False 
+    tile_background        = WHITE
+    color_picked           = "None"
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -144,26 +148,35 @@ def main():
             # If a mouse button was pressed.
             elif event.type == pg.MOUSEBUTTONDOWN:
 
-                # trying to let the user pic their color
+                # trying to let the user pick their color
                 for color_square in colors_to_board:
                     if color_square.rect.collidepoint(event.pos):
                         # making a seperate color button for the chosen color, to help user keep track of drawing color
                         chosen_color = GameButton("Color", color_square.get_piece_color(), button_x + 175, button_y - 205)
+                        # save the user color choice 
+                        color_picked = color_square.get_piece_color()
+                        # give user the option to go back to the original setting 
+                        origial_setting = GameButton("Black/White", BLACK, button_x + 175, button_y - 150)
                         # that way there aren't a bilion "Color" buttons in the sprite group at once
                         for button in buttons:
                             if button.get_button_function() == "Color":
                                 buttons.remove(button)
                         buttons.add(chosen_color)
+                        buttons.add(origial_setting)
             			
                 # Iterate over the sprites in the group.
                 for sprite in sprites_to_board:
                     # Check if the sprite's rect collides with the mouse pos.
                     if sprite.rect.collidepoint(event.pos):
                         # Finally change the color.
-                        if str(sprite.get_piece_color()) == "(255, 255, 255, 255)":
-                                sprite.change_color(BLACK)
-                        elif str(sprite.get_piece_color()) == "(0, 0, 0, 255)":
-                            sprite.change_color(WHITE)
+                        if color_picked == "None":
+                            if str(sprite.get_piece_color()) == "(255, 255, 255, 255)":
+                                    sprite.change_color(BLACK)
+                            elif str(sprite.get_piece_color()) == "(0, 0, 0, 255)":
+                                sprite.change_color(WHITE)
+                        else: 
+                            # set the tile to the color of the user's choosing 
+                            sprite.change_color(color_picked)
 
                 # Iterate over the buttons in the group.
                 for button in buttons:
@@ -206,6 +219,7 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "GET FRACTAL"):
                         get_fractal_clicked = True 
                         machine_running = False
+                    elif 
 
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
@@ -230,9 +244,6 @@ def main():
         print(item)
 
     pg.quit()
-
-    for button in buttons:
-        print(button.get_button_function())
 
     if get_fractal_clicked:
         return [game_array, click_counter]
