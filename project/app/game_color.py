@@ -132,11 +132,10 @@ def main():
     buttons.add( exit_button     ) 
 
     # setting up extra variables 
-    click_counter          = 0
-    get_fractal_clicked    = False
-    origial_setting_option = False 
-    tile_background        = WHITE
-    color_picked           = "None"
+    click_counter       = 0
+    get_fractal_clicked = False
+    tile_background     = WHITE
+    color_picked        = "None"
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -155,24 +154,27 @@ def main():
                         chosen_color = GameButton("Color", color_square.get_piece_color(), button_x + 175, button_y - 205)
                         # save the user color choice 
                         color_picked = color_square.get_piece_color()
+                        print(color_picked)
                         # give user the option to go back to the original setting 
-                        origial_setting = GameButton("Black/White", BLACK, button_x + 175, button_y - 150)
+                        black_setting = GameButton("Black", BLACK, button_x + 175, button_y - 150)
+                        white_setting = GameButton("White", BLACK, button_x + 175, button_y - 95)
                         # that way there aren't a bilion "Color" buttons in the sprite group at once
                         for button in buttons:
                             if button.get_button_function() == "Color":
                                 buttons.remove(button)
                         buttons.add(chosen_color)
-                        buttons.add(origial_setting)
+                        buttons.add(black_setting)
+                        buttons.add(white_setting)
             			
                 # Iterate over the sprites in the group.
                 for sprite in sprites_to_board:
                     # Check if the sprite's rect collides with the mouse pos.
                     if sprite.rect.collidepoint(event.pos):
                         # Finally change the color.
-                        if color_picked == "None":
-                            if str(sprite.get_piece_color()) == "(255, 255, 255, 255)":
-                                    sprite.change_color(BLACK)
-                            elif str(sprite.get_piece_color()) == "(0, 0, 0, 255)":
+                        if color_picked == "None" or color_picked == BLACK or color_picked == WHITE:
+                            if str(sprite.get_piece_color()) == "(255, 255, 255, 255)" or color_picked == BLACK:
+                                sprite.change_color(BLACK)
+                            elif str(sprite.get_piece_color()) == "(0, 0, 0, 255)" or color_picked == WHITE:
                                 sprite.change_color(WHITE)
                         else: 
                             # set the tile to the color of the user's choosing 
@@ -219,7 +221,14 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "GET FRACTAL"):
                         get_fractal_clicked = True 
                         machine_running = False
-                    elif 
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Black"):
+                        color_picked = BLACK
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "White"):
+                        color_picked = WHITE
+
+
+
+
 
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
