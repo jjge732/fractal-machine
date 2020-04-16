@@ -27,7 +27,6 @@ class Image:
         count = 0
         print(f"Attempting to create the fractal.")
         square_side_length = len(color_list)
-        # if file_name == "fractal":
         file_name = f"{file_name}-{square_side_length}x{square_side_length}"
         while True:
             try:
