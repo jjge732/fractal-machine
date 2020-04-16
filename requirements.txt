@@ -3,4 +3,4 @@ config
 pygame
 psycopg2
 psycopg2-binary
-# tkinter
+requests
