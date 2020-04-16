@@ -87,12 +87,12 @@ class Image:
                 A string representation of the svg file
 
         """
-        new_square_side_length = 600 * square_side_length
+        new_square_side_length = 500 * square_side_length
         image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg">'
 
         for x, color_sub_list in enumerate(color_list):
             for y, color in enumerate(color_sub_list):
-                dimensions = 600 / (square_side_length ** (degrees_of_fractility - 1))
+                dimensions = 500 / (square_side_length ** (degrees_of_fractility - 1))
                 x_index = x * dimensions
                 y_index = y * dimensions
                 image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'

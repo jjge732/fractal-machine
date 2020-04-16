@@ -27,7 +27,7 @@ class API:
 
     @staticmethod
     def storeImage(file_name: str) -> None:
-        """Method for storing an image in an S3 bucket
+        """Method for storing an image in an S3 bucket.
 
             Args:
                 file_name: The name of the file to store in S3
@@ -55,6 +55,6 @@ class API:
             }
         )
         if response.status_code == 200:
-            print(f"Successfully stored f{file_name} in S3!")
+            print(f"Successfully stored {file_name} in S3!")
         else:
             print(f"An error occurred with status code {requests.status_code} and data:\n{response.data}")
