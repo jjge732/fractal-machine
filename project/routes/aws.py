@@ -1,9 +1,21 @@
 import os
 import requests
+from typing import List
 
 ROOT = os.environ.get("FRACTAL_MACHINE_ROOT")
 
 class API:
+
+    @staticmethod
+    def retrieveListOfImageNames() -> List[str]:
+        """Method for retrieving all the image names from the S3 bucket.
+        """
+        print(f"Attempting to retrieving image names from S3...")
+        response = requests.get(f"https://lwvefma751.execute-api.us-east-2.amazonaws.com/DEV/")
+        if response.status_code != 200:
+            raise Exception(f"Unable to be connect to S3.")
+        print(f"Successfully retrieved file names from S3!")
+        return [name for name in response.json()['body']]
     
     @staticmethod
     def retrieveImage(file_name: str) -> None:
