@@ -3,6 +3,7 @@ import requests
 from typing import List
 
 ROOT = os.environ.get("FRACTAL_MACHINE_ROOT")
+URL = "https://lwvefma751.execute-api.us-east-2.amazonaws.com/v1/"
 
 class API:
 
@@ -11,7 +12,7 @@ class API:
         """Method for retrieving all the image names from the S3 bucket.
         """
         print(f"Attempting to retrieving image names from S3...")
-        response = requests.get(f"https://lwvefma751.execute-api.us-east-2.amazonaws.com/DEV/")
+        response = requests.get(URL)
         if response.status_code != 200:
             raise Exception(f"Unable to be connect to S3.")
         print(f"Successfully retrieved file names from S3!")
@@ -26,14 +27,15 @@ class API:
 
         """
         print(f"Attempting to retrieving {file_name} from S3...")
-        response = requests.get(f"https://lwvefma751.execute-api.us-east-2.amazonaws.com/v1/{file_name}")
+        response = requests.get(f"{URL}{file_name}")
         if response.status_code != 200:
             raise Exception(f"File unable to be located: {response}")
         try:
-            file = open(file_name, "x")
+            file_location = f"{ROOT}/project/images/{file_name}"
+            file = open(file_location, "x")
         except Exception:
             print(f"Overwritting file named {file_name} in the images folder.")
-            file = open(file_name, "w")
+            file = open(file_location, "w")
         file.write(response.text)
         print(f"Successfully retrieved file from S3 and stored it in the images folder!")
 
@@ -60,7 +62,7 @@ class API:
         print(f"Attempting to store {file_name} in S3...")
         file = open(f"{ROOT}/project/images/{file_name}")
         response = requests.put(
-            url=f"https://lwvefma751.execute-api.us-east-2.amazonaws.com/v1/{file_name}",
+            url=f"{URL}{file_name}",
             data=file,
             headers={
                 "Content-Type": "image/svg+xml"

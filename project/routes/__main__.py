@@ -1,3 +1,5 @@
 from aws import API
 
-API.retrieveListOfImageNames()
+print(API.retrieveListOfImageNames())
+API.retrieveImage("fractal-3x3.svg")
+API.storeImage("fractal-3x3.svg")
