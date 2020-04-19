@@ -2,3 +2,5 @@ project/images/*
 !project/images/__init__.py
 .idea/*
 */__pycache__
+*.pyc
+.DS_STORE
