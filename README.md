@@ -12,6 +12,10 @@ fractal-machine
 │    │   └── gamebutton.py           --> class that creates the buttons of the game 
 │    │   └── image_editor.py         --> mainly used for creating images in images directory
 │    │   └── Jelly\ Crazies.ttf      --> font used in the game
+│    │   └── game_color.py           --> (WIP) for the color editiion of game.py
+│    │   └── webscrap_forcolors.py   --> (WIP) for the color editiion of game.py
+│    │   └── RGB_HEX.xlsx            --> (WIP) for the color editiion of game.py
+│    │   └── colortile.py            --> (WIP) for the color editiion of game.py
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
 │    │   └── config.py               --> file for configuring connection to the database
