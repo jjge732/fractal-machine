@@ -3,6 +3,7 @@ from boardpiece import BoardPiece
 from gamebutton import GameButton
 from image_editor import Image
 from colortile import ColorTile
+from textfield import TextField
 import pandas as pd 
 
 # colors of board pieces 
@@ -91,7 +92,7 @@ def get_board_array(sprites, board_length):
 # Sets up the screen and runs the main game loop 
 def main():
 
-    pg.init()
+    clock = pg.time.Clock()
 
     # setting up the names needed for the display 
     SCREEN_WIDTH  = 1400
@@ -113,24 +114,19 @@ def main():
 
     # buttons that specify game functionality
     buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(        "3x3",       RANDOM,         button_x, button_y) 
-    four_by_four    = GameButton(        "4x4",       RANDOM, (button_x + 228), button_y)
-    invert_button   = GameButton(     "Invert",       RANDOM,         button_x, (button_y + 52))
-    clear_button    = GameButton(      "Clear",       RANDOM, (button_x + 228), (button_y + 52))
-    generate_button = GameButton( "Fractalify",       RANDOM,         button_x, (button_y + 104))
-    # number_button   = GameButton(          "1", SCREEN_COLOR, (button_x + 228), (button_y + 260))
-   
-    # buttons to end game 
-    exit_button     = GameButton("EXIT", SCREEN_COLOR, 0, 850)
-    # buttons to get the fractal  
-    fractal_buttton = GameButton("Get Fractal!", RANDOM, (button_x + 228), (button_y + 104))
+    three_by_three  = GameButton(         "3x3",       RANDOM,         button_x,             button_y) 
+    four_by_four    = GameButton(         "4x4",       RANDOM, (button_x + 228),             button_y)
+    invert_button   = GameButton(      "Invert",       RANDOM,         button_x,      (button_y + 52))
+    clear_button    = GameButton(       "Clear",       RANDOM, (button_x + 228),      (button_y + 52))
+    generate_button = GameButton(  "Fractalify",       RANDOM,         button_x,     (button_y + 104))
+    fractal_buttton = GameButton("Get Fractal!",       RANDOM, (button_x + 228),     (button_y + 104))
+    exit_button     = GameButton(        "EXIT", SCREEN_COLOR,                0, (SCREEN_HEIGHT - 50))  
 
 
+    # change the font of the exit button to match the title 
     exit_button.change_font("Jelly Crazies.ttf")
-    # fractal_buttton.change_font("Jelly Crazies.ttf")
-    # number_button.update_size(50,50)
-    # fractal_buttton.update_size(295,50)
 
+    # add buttons to sprite group
     buttons.add( three_by_three  )
     buttons.add( four_by_four    )
     buttons.add( clear_button    )
@@ -138,16 +134,19 @@ def main():
     buttons.add( generate_button )
     buttons.add( exit_button     ) 
 
+    # making the text box 
+    file_name_text_box = TextField(900, 200, 140, 32)
+
     # setting up extra variables 
     click_counter       = 0
     get_fractal_clicked = False
-    # tile_background     = WHITE
     color_picked        = "None"
 
     # MAIN GAME LOOP 
     machine_running = True
     while machine_running:
         for event in pg.event.get():
+
             if event.type == pg.QUIT:
                 machine_running = False
 
@@ -205,7 +204,6 @@ def main():
                         board_length = 4
                     # the clear button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
-                        print("hello - 2")
                         for sprite in sprites_to_board:
                             sprite.change_color(WHITE)
                     # exit button 
@@ -213,7 +211,6 @@ def main():
                         machine_running = False
                     # fractalify button
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function()[:len("Fractalify")] == "Fractalify"):
-                        print("hello")
                         click_counter += 1
                         if click_counter == 1:
                             generate_button.update_function(F"Fractalify: {click_counter}")
@@ -232,7 +229,19 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
 
+                if file_name_text_box.rect.collidepoint(event.pos):
+                    file_name_text_box.set_active()
+                else: 
+                    file_name_text_box.set_inactive()
+
+            elif event.type == pg.KEYDOWN:
+                print("hey")
+                # if file_name_text_box.get_active_status(): 
+                #     print("hey - 2")
+                file_name_text_box.user_typing(event)
+
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
+        file_name_text_box.update()
         sprites_to_board.update()
         colors_to_board.update()
         buttons.update()
@@ -244,17 +253,17 @@ def main():
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
+        file_name_text_box.draw(screen)
 
         # updates the whole display 
         pg.display.flip()
+        clock.tick(30)
 
     # game_array is produced once the main game loop has ended
     game_array = get_board_array(sprites_to_board, board_length)
 
     for item in game_array:
         print(item)
-
-    pg.quit()
 
     if get_fractal_clicked:
         return [game_array, click_counter]
@@ -263,8 +272,10 @@ def main():
 
 # ---------------------------------------------------------------------
 #invoke main & pygame 
-game_output = main()
-
+if __name__ == '__main__':
+    pg.init()
+    game_output = main()
+    pg.quit()
 #---------------------------------------------------------------------
 #invoke Image_editor 
 if isinstance(game_output, list):
