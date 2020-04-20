@@ -8,7 +8,7 @@ import pandas as pd
 # colors of board pieces 
 WHITE        = pg.Color(255, 255, 255)
 BLACK        = pg.Color(0, 0, 0)
-LIGHT_GREY   = pg.Color(216,216,216)
+GREY         = pg.Color(89, 89, 89)
 SCREEN_COLOR = BLACK
 
 # other colors 
@@ -36,19 +36,18 @@ for color, i in zip(colors_list, range(color_df.shape[0])):
     temp_hex = str(color_df.iloc[i, 1])
     color_dict[str(color)] = temp_hex
 
-
 # ---------------------------------------------------------------------
 # UTILS 
 
-
 # Create the BoardPieces and add them to the sprites_to_board group.
-def makeBoard(length):
+def makeBoard(length): 
     sprites_to_board = pg.sprite.Group()
-    x_start_coord    = 400 
-    y_start_coord    = 200
+    x_start_coord    = 300
+    y_start_coord    = 175
     # to make it more centered when clicking between 3x3 and 4x4 
     if length == 3:
-        x_start_coord = 250
+        x_start_coord = 350
+        y_start_coord = 225
     for y in range(length):
         for x in range(length):
             # if you want a border to the rectangles, make x and y = 101, if not, 100
@@ -58,8 +57,8 @@ def makeBoard(length):
 #create a color board 
 def makeColorBoard(color_list):
     colors_to_board = pg.sprite.Group()
-    x_start_coord    = 100
-    y_start_coord    = 120
+    x_start_coord   = 50
+    y_start_coord   = 150
     count = 0 
     for y in range(15):
         for x in range(5):
@@ -95,13 +94,13 @@ def main():
     pg.init()
 
     # setting up the names needed for the display 
-    SCREEN_WIDTH  = 1200
-    SCREEN_HEIGHT = 800
+    SCREEN_WIDTH  = 1400
+    SCREEN_HEIGHT = 900
     screen   = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     font     = pg.font.Font("Jelly Crazies.ttf", 25) 
     text     = font.render('FRACTAL MACHINE', True, WHITE)
     textRect = text.get_rect() 
-    textRect.center  = (600, 50) 
+    textRect.center  = ((SCREEN_WIDTH / 2), 50) 
 
     # creating the board 
     board_length     = 4
@@ -109,27 +108,28 @@ def main():
     colors_to_board  = makeColorBoard(colors_list)
 
     # making the buttons 
-    button_x = 1000
-    button_y = 120
+    button_x = 275
+    button_y = 625
 
     # buttons that specify game functionality
     buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(        "3x3",       RANDOM, button_x, button_y) 
-    four_by_four    = GameButton(        "4x4",       RANDOM, button_x, (button_y + 55))
-    invert_button   = GameButton(     "Invert",       RANDOM, button_x, (button_y + 110))
-    clear_button    = GameButton(      "Clear",       RANDOM, button_x, (button_y + 160))
-    generate_button = GameButton( "Fractalify",       RANDOM, button_x, (button_y + 260))
-    number_button   = GameButton(          "1", SCREEN_COLOR, button_x + 50, (button_y + 260))
+    three_by_three  = GameButton(        "3x3",       RANDOM,         button_x, button_y) 
+    four_by_four    = GameButton(        "4x4",       RANDOM, (button_x + 228), button_y)
+    invert_button   = GameButton(     "Invert",       RANDOM,         button_x, (button_y + 52))
+    clear_button    = GameButton(      "Clear",       RANDOM, (button_x + 228), (button_y + 52))
+    generate_button = GameButton( "Fractalify",       RANDOM,         button_x, (button_y + 104))
+    # number_button   = GameButton(          "1", SCREEN_COLOR, (button_x + 228), (button_y + 260))
    
-    # buttons that change the game state
-    exit_button     = GameButton(       "EXIT", SCREEN_COLOR, 900, 700)
-    fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, 900, 500)
+    # buttons to end game 
+    exit_button     = GameButton("EXIT", SCREEN_COLOR, 0, 850)
+    # buttons to get the fractal  
+    fractal_buttton = GameButton("Get Fractal!", RANDOM, (button_x + 228), (button_y + 104))
 
 
     exit_button.change_font("Jelly Crazies.ttf")
-    fractal_buttton.change_font("Jelly Crazies.ttf")
-    number_button.update_size(50,50)
-    fractal_buttton.update_size(295,50)
+    # fractal_buttton.change_font("Jelly Crazies.ttf")
+    # number_button.update_size(50,50)
+    # fractal_buttton.update_size(295,50)
 
     buttons.add( three_by_three  )
     buttons.add( four_by_four    )
@@ -141,7 +141,7 @@ def main():
     # setting up extra variables 
     click_counter       = 0
     get_fractal_clicked = False
-    tile_background     = WHITE
+    # tile_background     = WHITE
     color_picked        = "None"
 
     # MAIN GAME LOOP 
@@ -157,20 +157,19 @@ def main():
                 # trying to let the user pick their color
                 for color_square in colors_to_board:
                     if color_square.rect.collidepoint(event.pos):
-                        # making a seperate color button for the chosen color, to help user keep track of drawing color
-                        chosen_color = GameButton("Color", color_square.get_piece_color(), button_x + 175, button_y - 205)
                         # save the user color choice 
                         color_picked = color_square.get_piece_color()
-                        print(color_picked)
+                        # making a seperate color button for the chosen color, to help user keep track of drawing color
+                        chosen_color = GameButton("Current Color", color_picked, 50, (button_y + 52))
+                        chosen_color.update_size(170,50)
                         # give user the option to go back to the original setting 
-                        black_setting = GameButton("Black", BLACK, button_x + 175, button_y - 150)
-                        white_setting = GameButton("White", BLACK, button_x + 175, button_y - 95)
+                        white_setting = GameButton("Original B/W", BLACK, 50, (button_y + 104))
+                        white_setting.update_size(170,50)
                         # that way there aren't a bilion "Color" buttons in the sprite group at once
                         for button in buttons:
                             if button.get_button_function() == "Color":
                                 buttons.remove(button)
                         buttons.add(chosen_color)
-                        buttons.add(black_setting)
                         buttons.add(white_setting)
             			
                 # Iterate over the sprites in the group.
@@ -206,31 +205,31 @@ def main():
                         board_length = 4
                     # the clear button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
+                        print("hello - 2")
                         for sprite in sprites_to_board:
                             sprite.change_color(WHITE)
                     # exit button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "EXIT"):
                         machine_running = False
                     # fractalify button
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Fractalify"):
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function()[:len("Fractalify")] == "Fractalify"):
+                        print("hello")
                         click_counter += 1
                         if click_counter == 1:
-                            buttons.add(number_button)
+                            generate_button.update_function(F"Fractalify: {click_counter}")
                             buttons.add(fractal_buttton)
                         # where the limit is set 
                         if click_counter <= 5: 
-                            number_button.update_function(str(click_counter))
+                            generate_button.update_function(F"Fractalify: {click_counter}")
                         else:
                             click_counter = 0
-                            buttons.remove(number_button)
+                            generate_button.update_function(F"Fractalify")
                             buttons.remove(fractal_buttton)
                     # get fract button 
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "GET FRACTAL"):
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Get Fractal!"):
                         get_fractal_clicked = True 
                         machine_running = False
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Black"):
-                        color_picked = BLACK
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "White"):
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
@@ -240,7 +239,8 @@ def main():
 
         # setting up the display 
         screen.fill(SCREEN_COLOR)
-        screen.blit(text, textRect) 
+        screen.blit(text, textRect)
+        pg.draw.rect(screen, GREY, (275,150,454,454))
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
