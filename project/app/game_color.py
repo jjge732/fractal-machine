@@ -8,9 +8,12 @@ import pandas as pd
 # colors of board pieces 
 WHITE        = pg.Color(255, 255, 255)
 BLACK        = pg.Color(0, 0, 0)
+LIGHT_GREY   = pg.Color(216,216,216)
+SCREEN_COLOR = BLACK
+
+# other colors 
 RANDOM       = pg.Color(255, 175, 50)
 OTHER        = pg.Color(175, 175, 175)
-SCREEN_COLOR = pg.Color(100, 100, 130)
 
 # ---------------------------------------------------------------------
 # SETTING UP THE COLORS 
@@ -21,7 +24,7 @@ color_df = pd.read_excel('RGB_Hex.xlsx')
 
 colors_list = []
 
-for i in range(color_df.shape[0]):
+for i in range((color_df.shape[0])):
     temp_color = str(color_df.iloc[i, 0])
     temp_color = temp_color.replace("(", "").replace(")", "")
     temp_list  = temp_color.split(",")
@@ -33,6 +36,7 @@ for color, i in zip(colors_list, range(color_df.shape[0])):
     temp_hex = str(color_df.iloc[i, 1])
     color_dict[str(color)] = temp_hex
 
+
 # ---------------------------------------------------------------------
 # UTILS 
 
@@ -40,8 +44,8 @@ for color, i in zip(colors_list, range(color_df.shape[0])):
 # Create the BoardPieces and add them to the sprites_to_board group.
 def makeBoard(length):
     sprites_to_board = pg.sprite.Group()
-    x_start_coord    = 200 
-    y_start_coord    = 180
+    x_start_coord    = 400 
+    y_start_coord    = 200
     # to make it more centered when clicking between 3x3 and 4x4 
     if length == 3:
         x_start_coord = 250
@@ -54,12 +58,12 @@ def makeBoard(length):
 #create a color board 
 def makeColorBoard(color_list):
     colors_to_board = pg.sprite.Group()
-    x_start_coord    = 650
-    y_start_coord    = 180
+    x_start_coord    = 100
+    y_start_coord    = 120
     count = 0 
-    for y in range(10):
-        for x in range(10):
-            colors_to_board.add( ColorTile( (x_start_coord + (x*25), y_start_coord + (y*25)), color_list[count]) ) 
+    for y in range(15):
+        for x in range(5):
+            colors_to_board.add( ColorTile( (x_start_coord + (x*35), y_start_coord + (y*35)), color_list[count]) ) 
             count+=1
     return colors_to_board
 
@@ -91,11 +95,13 @@ def main():
     pg.init()
 
     # setting up the names needed for the display 
-    screen   = pg.display.set_mode((1000, 800))
-    font     = pg.font.Font("Jelly Crazies.ttf", 35) 
+    SCREEN_WIDTH  = 1200
+    SCREEN_HEIGHT = 800
+    screen   = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    font     = pg.font.Font("Jelly Crazies.ttf", 25) 
     text     = font.render('FRACTAL MACHINE', True, WHITE)
     textRect = text.get_rect() 
-    textRect.center  = (400, 100) 
+    textRect.center  = (600, 50) 
 
     # creating the board 
     board_length     = 4
@@ -103,20 +109,21 @@ def main():
     colors_to_board  = makeColorBoard(colors_list)
 
     # making the buttons 
-    # the weird x values are to make one pixel of space between each button 
-    # when making new  buttons, subtract 101 from the previous button 
-    button_x = 650 
-    button_y = 650 
+    button_x = 1000
+    button_y = 120
 
+    # buttons that specify game functionality
     buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(        "3x3",       RANDOM, (button_x - 404),         button_y) 
-    four_by_four    = GameButton(        "4x4",       RANDOM, (button_x - 303),         button_y)
-    invert_button   = GameButton(     "Invert",       RANDOM, (button_x - 202),         button_y)
-    clear_button    = GameButton(      "Clear",       RANDOM, (button_x - 101),         button_y)
-    exit_button     = GameButton(       "EXIT", SCREEN_COLOR, (button_x - 530), (button_y + 100))
-    number_button   = GameButton(          "1", SCREEN_COLOR,  (button_x + 51),         button_y)
-    generate_button = GameButton( "Fractalify",       RANDOM,         button_x,         button_y)
-    fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, (button_x + 130), (button_y + 100))
+    three_by_three  = GameButton(        "3x3",       RANDOM, button_x, button_y) 
+    four_by_four    = GameButton(        "4x4",       RANDOM, button_x, (button_y + 55))
+    invert_button   = GameButton(     "Invert",       RANDOM, button_x, (button_y + 110))
+    clear_button    = GameButton(      "Clear",       RANDOM, button_x, (button_y + 160))
+    generate_button = GameButton( "Fractalify",       RANDOM, button_x, (button_y + 260))
+    number_button   = GameButton(          "1", SCREEN_COLOR, button_x + 50, (button_y + 260))
+   
+    # buttons that change the game state
+    exit_button     = GameButton(       "EXIT", SCREEN_COLOR, 900, 700)
+    fractal_buttton = GameButton("GET FRACTAL", SCREEN_COLOR, 900, 500)
 
 
     exit_button.change_font("Jelly Crazies.ttf")
@@ -225,11 +232,6 @@ def main():
                         color_picked = BLACK
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "White"):
                         color_picked = WHITE
-
-
-
-
-
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()

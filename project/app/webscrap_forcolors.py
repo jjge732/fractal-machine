@@ -2,7 +2,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import requests
 
-
 # needs:
 # pip install beautifulsoup4
 # pip install requests 
