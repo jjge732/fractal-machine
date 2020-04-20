@@ -3,7 +3,7 @@ from boardpiece import BoardPiece
 from gamebutton import GameButton
 from image_editor import Image
 from colortile import ColorTile
-from textfield import TextField
+# from textfield import TextField
 import pandas as pd 
 
 # colors of board pieces 
@@ -92,8 +92,6 @@ def get_board_array(sprites, board_length):
 # Sets up the screen and runs the main game loop 
 def main():
 
-    clock = pg.time.Clock()
-
     # setting up the names needed for the display 
     SCREEN_WIDTH  = 1400
     SCREEN_HEIGHT = 900
@@ -135,7 +133,7 @@ def main():
     buttons.add( exit_button     ) 
 
     # making the text box 
-    file_name_text_box = TextField(900, 200, 140, 32)
+    # file_name_text_box = TextField(900, 200, 140, 32)
 
     # setting up extra variables 
     click_counter       = 0
@@ -229,19 +227,19 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
 
-                if file_name_text_box.rect.collidepoint(event.pos):
-                    file_name_text_box.set_active()
-                else: 
-                    file_name_text_box.set_inactive()
+                # if file_name_text_box.rect.collidepoint(event.pos):
+                #     file_name_text_box.set_active()
+                # else: 
+                #     file_name_text_box.set_inactive()
 
-            elif event.type == pg.KEYDOWN:
-                print("hey")
-                # if file_name_text_box.get_active_status(): 
-                #     print("hey - 2")
-                file_name_text_box.user_typing(event)
+            # elif event.type == pg.KEYDOWN:
+            #     print("hey")
+            #     # if file_name_text_box.get_active_status(): 
+            #     #     print("hey - 2")
+            #     file_name_text_box.user_typing(event)
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
-        file_name_text_box.update()
+        # file_name_text_box.update()
         sprites_to_board.update()
         colors_to_board.update()
         buttons.update()
@@ -253,11 +251,10 @@ def main():
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
-        file_name_text_box.draw(screen)
+        # file_name_text_box.draw(screen)
 
         # updates the whole display 
         pg.display.flip()
-        clock.tick(30)
 
     # game_array is produced once the main game loop has ended
     game_array = get_board_array(sprites_to_board, board_length)
