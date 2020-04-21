@@ -147,6 +147,8 @@ def main():
     color_picked        = "None"
     text_box_active     = False
     temp_string         = ""
+    user_named_fractal  = False
+    
 
     # Giving the game a title
     pg.display.set_caption('Fractal Machine')
@@ -161,6 +163,7 @@ def main():
 
             # If a mouse button was pressed.
             elif event.type == pg.MOUSEBUTTONDOWN:
+
 
                 # trying to let the user pick their color
                 for color_square in colors_to_board:
@@ -213,10 +216,6 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "4x4"):
                         sprites_to_board = makeBoard(4)
                         board_length = 4
-                    # the clear button 
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
-                        for sprite in sprites_to_board:
-                            sprite.change_color(WHITE)
                     # exit button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "EXIT"):
                         machine_running = False
@@ -241,6 +240,8 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Get Fractal!"):
                         get_fractal_clicked = True 
                         machine_running = False
+                        if temp_string != "" or temp_string != " ":
+                            user_named_fractal = True
                     # reset the colors to black and white 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
@@ -251,6 +252,15 @@ def main():
                         buttons.remove(button)
                         name_fract_button = GameButton(" ", LIGHT_GREY, 1075, 175)
                         buttons.add(name_fract_button)
+                    # the clear button 
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
+                        for sprite in sprites_to_board:
+                            sprite.change_color(WHITE)
+                        click_counter = 0
+                        generate_button.update_function(F"Fractalify")
+                        for button in buttons:
+                            if button in [fractal_buttton, name_fract_box, name_fract_button]:
+                                buttons.remove(button)
 
             elif event.type == pg.KEYDOWN:
                 if text_box_active: 
@@ -260,12 +270,6 @@ def main():
                     else:
                         temp_string += event.unicode
                         name_fract_button.update_function(temp_string)
-                    print(temp_string)
-            # elif event.type == pg.KEYDOWN:
-            #     print("hey")
-            #     # if file_name_text_box.get_active_status(): 
-            #     #     print("hey - 2")
-            #     file_name_text_box.user_typing(event)
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()
@@ -276,15 +280,9 @@ def main():
         screen.fill(SCREEN_COLOR)
         screen.blit(game_title, game_title_rect)
         pg.draw.rect(screen, GREY, (275,150,454,454)) # grid behind fract tiles 
-        # if text_box_active: # box behind the name fract box
-        #     pg.draw.rect(screen, LIGHT_GREY, [1075, 175, 200, 50])
-        # else:
-        #     pg.draw.rect(screen, GREY, [1075, 175, 200, 50])
-
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
-
 
         # updates the whole display 
         pg.display.flip()
@@ -296,7 +294,10 @@ def main():
         print(item)
 
     if get_fractal_clicked:
-        return [game_array, click_counter]
+        if user_named_fractal:
+            return [game_array, click_counter, temp_string]
+        else:
+            return [game_array, click_counter]
     else: 
         return "Not Activated" 
 
@@ -309,6 +310,8 @@ if __name__ == '__main__':
 #---------------------------------------------------------------------
 # invoke Image_editor 
 if isinstance(game_output, list):
-    Image.write_image(game_output[0], game_output[1])
-
+    if len(game_output) == 3:
+        Image.write_image(game_output[0], game_output[1], game_output[2])
+    else: 
+        Image.write_image(game_output[0], game_output[1])
 
