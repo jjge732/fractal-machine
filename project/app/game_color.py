@@ -3,22 +3,18 @@ from boardpiece import BoardPiece
 from gamebutton import GameButton
 from image_editor import Image
 from colortile import ColorTile
-# from textfield import TextField
 import pandas as pd 
 
-# colors of board pieces 
-WHITE          = pg.Color(255, 255, 255)
-BLACK          = pg.Color(0, 0, 0)
-GREY           = pg.Color(89, 89, 89)
-SCREEN_COLOR   = BLACK
-COLOR_INACTIVE = GREY
-COLOR_ACTIVE   = WHITE
+# main colors of the game 
+WHITE        = pg.Color(255, 255, 255)
+BLACK        = pg.Color(0, 0, 0)
+GREY         = pg.Color(89, 89, 89)
+LIGHT_GREY   = pg.Color(175, 175, 175)
+BUTTON_COLOR = pg.Color(89, 89, 150)
+SCREEN_COLOR = BLACK
 
 # other colors 
 RANDOM       = pg.Color(255, 175, 50)
-OTHER        = pg.Color(89, 89, 150)
-BUTTON_COLOR = OTHER
-
 
 # ---------------------------------------------------------------------
 # SETTING UP THE COLORS 
@@ -118,15 +114,16 @@ def main():
     buttons           = pg.sprite.Group()
     three_by_three    = GameButton(         "3x3", BUTTON_COLOR,         button_x,             button_y) 
     four_by_four      = GameButton(         "4x4", BUTTON_COLOR, (button_x + 228),             button_y)
-    invert_button     = GameButton(      "Invert", BUTTON_COLOR,         button_x,      (button_y + 52))
-    clear_button      = GameButton(       "Clear", BUTTON_COLOR, (button_x + 228),      (button_y + 52))
-    generate_button   = GameButton(  "Fractalify", BUTTON_COLOR,         button_x,     (button_y + 104))
-    fractal_buttton   = GameButton("Get Fractal!", BUTTON_COLOR, (button_x + 228),     (button_y + 104))
+    invert_button     = GameButton(      "Invert", BUTTON_COLOR,         button_x,      (button_y + 55))
+    clear_button      = GameButton(       "Clear", BUTTON_COLOR, (button_x + 228),      (button_y + 55))
+    generate_button   = GameButton(  "Fractalify", BUTTON_COLOR,  (button_x + 115),    (button_y + 110))
     exit_button       = GameButton(        "EXIT", SCREEN_COLOR,                0, (SCREEN_HEIGHT - 50))  
-    
-    # not really a button, but a box on the Screen 
-    save_fract_button = GameButton("Save Fractal As: ", SCREEN_COLOR, 750, 175)    
 
+    # buttons that pop up once the user chooses a degree of fractilality 
+    # save_fract_button is not really a button, but just a box on the Screen 
+    name_fract_box    = GameButton("Enter Name of Fractal:", GREY, 825, 175)
+    name_fract_button = GameButton(" ", GREY, 1075, 175)
+    fractal_buttton   = GameButton("Get Fractal!", BUTTON_COLOR, 825, 250)
 
     # change the font of the exit button to match the title 
     exit_button.change_font("Jelly Crazies.ttf")
@@ -138,7 +135,8 @@ def main():
     buttons.add( invert_button   )
     buttons.add( generate_button )
     buttons.add( exit_button     ) 
-    buttons.add(save_fract_button)
+    # buttons.add(name_fract_button)
+
 
     # making the text box 
     # file_name_text_box = TextField(900, 200, 140, 32)
@@ -148,7 +146,10 @@ def main():
     get_fractal_clicked = False
     color_picked        = "None"
     text_box_active     = False
-    user_input_text     = ""
+    temp_string         = ""
+
+    # Giving the game a title
+    pg.display.set_caption('Fractal Machine')
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -174,7 +175,9 @@ def main():
                         original_setting.update_size(170,50)
                         # that way there aren't a bilion "Color" buttons in the sprite group at once
                         for button in buttons:
-                            if button.get_button_function() == "Color":
+                            if button.get_button_function() == "Current Color": 
+                                buttons.remove(button)
+                            if button.get_button_function() == "Original B/W": 
                                 buttons.remove(button)
                         buttons.add(chosen_color)
                         buttons.add(original_setting)
@@ -183,7 +186,7 @@ def main():
                 for sprite in sprites_to_board:
                     # Check if the sprite's rect collides with the mouse pos.
                     if sprite.rect.collidepoint(event.pos):
-                        # Finally change the color.
+                        # Change the color.
                         if color_picked == "None" or color_picked == BLACK or color_picked == WHITE:
                             if str(sprite.get_piece_color()) == "(255, 255, 255, 255)" or color_picked == BLACK:
                                 sprite.change_color(BLACK)
@@ -223,6 +226,8 @@ def main():
                         if click_counter == 1:
                             generate_button.update_function(F"Fractalify: {click_counter}")
                             buttons.add(fractal_buttton)
+                            buttons.add(name_fract_box)
+                            buttons.add(name_fract_button)
                         # where the limit is set 
                         if click_counter <= 5: 
                             generate_button.update_function(F"Fractalify: {click_counter}")
@@ -230,22 +235,31 @@ def main():
                             click_counter = 0
                             generate_button.update_function(F"Fractalify")
                             buttons.remove(fractal_buttton)
+                            buttons.remove(name_fract_box)
+                            buttons.remove(name_fract_button)
                     # get fract button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Get Fractal!"):
                         get_fractal_clicked = True 
                         machine_running = False
+                    # reset the colors to black and white 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
-                        buttons.remove(chosen_color)
                         buttons.remove(original_setting)
+                        buttons.remove(chosen_color)
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == " "):
+                        text_box_active = True 
+                        buttons.remove(button)
+                        name_fract_button = GameButton(" ", LIGHT_GREY, 1075, 175)
+                        buttons.add(name_fract_button)
 
-                # if file_name_text_box.rect.collidepoint(event.pos):
-                #     file_name_text_box.set_active()
-                # else: 
-                #     file_name_text_box.set_inactive()
             elif event.type == pg.KEYDOWN:
                 if text_box_active: 
-                    temp_string += str(event.unicode)
+                    if event.key == pg.K_BACKSPACE:
+                        temp_string = temp_string[:-1]
+                        name_fract_button.update_function(temp_string)
+                    else:
+                        temp_string += event.unicode
+                        name_fract_button.update_function(temp_string)
                     print(temp_string)
             # elif event.type == pg.KEYDOWN:
             #     print("hey")
@@ -261,7 +275,12 @@ def main():
         # setting up the display 
         screen.fill(SCREEN_COLOR)
         screen.blit(game_title, game_title_rect)
-        pg.draw.rect(screen, GREY, (275,150,454,454)) 
+        pg.draw.rect(screen, GREY, (275,150,454,454)) # grid behind fract tiles 
+        # if text_box_active: # box behind the name fract box
+        #     pg.draw.rect(screen, LIGHT_GREY, [1075, 175, 200, 50])
+        # else:
+        #     pg.draw.rect(screen, GREY, [1075, 175, 200, 50])
+
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
@@ -282,13 +301,13 @@ def main():
         return "Not Activated" 
 
 # ---------------------------------------------------------------------
-#invoke main & pygame 
+# invoke main & pygame 
 if __name__ == '__main__':
     pg.init()
     game_output = main()
     pg.quit()
 #---------------------------------------------------------------------
-#invoke Image_editor 
+# invoke Image_editor 
 if isinstance(game_output, list):
     Image.write_image(game_output[0], game_output[1])
 

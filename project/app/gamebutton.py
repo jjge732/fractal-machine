@@ -82,9 +82,4 @@ class GameButton(pg.sprite.Sprite):
 
     def update_color(self, color):
         self.color    = color # color of board piece 
-        self.image.fill(self.color)
-        W = self.textSurf.get_width()
-        H = self.textSurf.get_height()
-        self.image.blit(self.textSurf, [self.width/2 - W/2, self.height/2 - H/2])
-        pg.draw.rect(self.image, self.color, [self.x_pos , self.y_pos, self.width, self.height])
-        self.rect = self.image.get_rect(topleft = (self.x_pos, self.y_pos))
+
