@@ -5,6 +5,7 @@ from image_editor import Image
 from colortile import ColorTile
 from routes.aws import API 
 import pandas as pd 
+import subprocess
 
 # main colors of the game 
 WHITE        = pg.Color(255, 255, 255)
@@ -37,6 +38,12 @@ color_dict = dict()
 for color, i in zip(colors_list, range(color_df.shape[0])):
     temp_hex = str(color_df.iloc[i, 1])
     color_dict[str(color)] = temp_hex
+
+# ---------------------------------------------------------------------
+# CREATING DROP DOWN OF NAMES IN AMAZON
+# EX: ['base-3x3.svg', 'base-4x4.svg', 'fractal-3x3.svg', 'test-2-4x4.svg']
+# print(API.retrieveListOfImageNames())
+
 
 # ---------------------------------------------------------------------
 # UTILS 
@@ -313,5 +320,7 @@ if isinstance(game_output, list):
         image = Image.write_image(game_output[0], game_output[1])
         API.storeImage(image)
 
-print(API.retrieveListOfImageNames())
+
+# WORKS 
+# subprocess.run('open -a "Google Chrome" ../images/test-1-4x4.svg', shell=True)
 
