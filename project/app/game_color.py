@@ -139,6 +139,7 @@ def main():
     click_counter       = 0
     get_fractal_clicked = False
     color_picked        = "None"
+    temp_string = "Hello"
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -231,7 +232,14 @@ def main():
                 #     file_name_text_box.set_active()
                 # else: 
                 #     file_name_text_box.set_inactive()
-
+            elif event.type == pg.KEYDOWN:
+                temp_string += str(event.unicode)
+                print(temp_string)
+                rect = pg.Rect(900, 900, 100, 30)
+                txt_surface = pg.font.Font(None, 32).render(temp_string, True, RANDOM)
+                screen.blit(txt_surface, (905, 905))
+                pg.draw.rect(screen, GREY, rect)
+                print("hi")
             # elif event.type == pg.KEYDOWN:
             #     print("hey")
             #     # if file_name_text_box.get_active_status(): 
