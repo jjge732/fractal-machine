@@ -134,18 +134,19 @@ def main():
     download_button   = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
 
     # special button that allows users to view most recent button
-    view_recent_button = GameButton("View Recent Fractalization", BUTTON_COLOR, 825, 325)
-
+    view_recent_button = GameButton("View Recent Fractalizations", LIGHT_GREY, (825 + 115) , 150)
+    view_recent_button.update_size(250, 50)
     # change the font of the exit button to match the title 
     exit_button.change_font("Jelly Crazies.ttf")
 
     # add buttons to sprite group
-    buttons.add( three_by_three  )
-    buttons.add( four_by_four    )
-    buttons.add( clear_button    )
-    buttons.add( invert_button   )
-    buttons.add( generate_button )
-    buttons.add( exit_button     ) 
+    buttons.add( three_by_three     )
+    buttons.add( four_by_four       )
+    buttons.add( clear_button       )
+    buttons.add( invert_button      )
+    buttons.add( generate_button    )
+    buttons.add( exit_button        ) 
+    buttons.add( view_recent_button )
 
     # setting up extra variables 
     click_counter       = 0
@@ -327,10 +328,6 @@ if isinstance(game_output, list):
     else: 
         image = Image.write_image(game_output[0], game_output[1])
         API.storeImage(image)
-
-    
-        # subprocess.run(F'open -a "Google Chrome" ../images/{image}', shell=True)
-
 
 # WORKS 
 # subprocess.run('open -a "Google Chrome" ../images/test-1-4x4.svg', shell=True)
