@@ -19,7 +19,7 @@ SCREEN_COLOR = BLACK
 RANDOM       = pg.Color(255, 175, 50)
 
 # ---------------------------------------------------------------------
-# SETTING UP THE COLORS 
+# SETTING UP THE COLOR BOARD
 # importing the color dataframe 
 # RGB_Hex.xlsx was created by webscrap_forcolors.py
 
@@ -38,12 +38,6 @@ color_dict = dict()
 for color, i in zip(colors_list, range(color_df.shape[0])):
     temp_hex = str(color_df.iloc[i, 1])
     color_dict[str(color)] = temp_hex
-
-# ---------------------------------------------------------------------
-# CREATING DROP DOWN OF NAMES IN AMAZON
-# EX: ['base-3x3.svg', 'base-4x4.svg', 'fractal-3x3.svg', 'test-2-4x4.svg']
-# print(API.retrieveListOfImageNames())
-
 
 # ---------------------------------------------------------------------
 # UTILS 
@@ -94,6 +88,11 @@ def get_board_array(sprites, board_length):
         counter += 1
     return board_array
 
+# see if the user name the fractal, else fractal will be named something like " -4x4.svg"
+def user_named_fractal(temp_string):
+    unique_chars = list(set(list(temp_string)))
+    return len(unique_chars) > 1 or (len(unique_chars) == 1 and " " not in unique_chars)
+
 # ---------------------------------------------------------------------
 # MAIN
 
@@ -114,7 +113,7 @@ def main():
     sprites_to_board = makeBoard(board_length)
     colors_to_board  = makeColorBoard(colors_list)
 
-    # making the buttons 
+    # making the buttons: 
     button_x = 275
     button_y = 625
 
@@ -124,14 +123,18 @@ def main():
     four_by_four      = GameButton(         "4x4", BUTTON_COLOR, (button_x + 228),             button_y)
     invert_button     = GameButton(      "Invert", BUTTON_COLOR,         button_x,      (button_y + 55))
     clear_button      = GameButton(       "Clear", BUTTON_COLOR, (button_x + 228),      (button_y + 55))
-    generate_button   = GameButton(  "Fractalify", BUTTON_COLOR,  (button_x + 115),    (button_y + 110))
+    generate_button   = GameButton(  "Fractalify", BUTTON_COLOR, (button_x + 115),     (button_y + 110))
     exit_button       = GameButton(        "EXIT", SCREEN_COLOR,                0, (SCREEN_HEIGHT - 50))  
 
     # buttons that pop up once the user chooses a degree of fractilality 
-    # save_fract_button is not really a button, but just a box on the Screen 
-    name_fract_box    = GameButton("Enter Name of Fractal:", GREY, 825, 175)
-    name_fract_button = GameButton(" ", GREY, 1075, 175)
-    fractal_buttton   = GameButton("Get Fractal!", BUTTON_COLOR, 825, 250)
+    # name_fract_box is not really used as a button, just a box on the Screen 
+    name_fract_box     = GameButton("Enter Name of Fractal:", GREY, 825, button_y)
+    name_fract_button  = GameButton(" ", GREY, 1075, button_y)
+    op_dwnload_buttton = GameButton("Open & Download", BUTTON_COLOR, 825, (button_y + 55))
+    download_button   = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
+
+    # special button that allows users to view most recent button
+    view_recent_button = GameButton("View Recent Fractalization", BUTTON_COLOR, 825, 325)
 
     # change the font of the exit button to match the title 
     exit_button.change_font("Jelly Crazies.ttf")
@@ -150,9 +153,8 @@ def main():
     color_picked        = "None"
     text_box_active     = False
     temp_string         = ""
-    user_named_fractal  = False
+    open_fractal = False
     
-
     # Giving the game a title
     pg.display.set_caption('Fractal Machine')
 
@@ -227,7 +229,8 @@ def main():
                         click_counter += 1
                         if click_counter == 1:
                             generate_button.update_function(F"Fractalify: {click_counter}")
-                            buttons.add(fractal_buttton)
+                            buttons.add(download_button)
+                            buttons.add(op_dwnload_buttton)
                             buttons.add(name_fract_box)
                             buttons.add(name_fract_button)
                         # where the limit is set 
@@ -236,15 +239,17 @@ def main():
                         else:
                             click_counter = 0
                             generate_button.update_function(F"Fractalify")
-                            buttons.remove(fractal_buttton)
+                            buttons.remove(download_button)
+                            buttons.remove(op_dwnload_buttton)
                             buttons.remove(name_fract_box)
                             buttons.remove(name_fract_button)
                     # get fract button 
-                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Get Fractal!"):
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Download" or button.get_button_function() == "Open & Download"):
                         get_fractal_clicked = True 
+                        if button.get_button_function() == "Open & Download":
+                            print("hello")
+                            open_fractal = True
                         machine_running = False
-                        if temp_string != "" or temp_string != " ":
-                            user_named_fractal = True
                     # reset the colors to black and white 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
@@ -253,7 +258,7 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == " "):
                         text_box_active = True 
                         buttons.remove(button)
-                        name_fract_button = GameButton(" ", LIGHT_GREY, 1075, 175)
+                        name_fract_button = GameButton(" ", LIGHT_GREY, 1075, button_y)
                         buttons.add(name_fract_button)
                     # the clear button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
@@ -261,8 +266,9 @@ def main():
                             sprite.change_color(WHITE)
                         click_counter = 0
                         generate_button.update_function(F"Fractalify")
+                        temp_string = ""
                         for button in buttons:
-                            if button in [fractal_buttton, name_fract_box, name_fract_button]:
+                            if button in [download_button, name_fract_box, name_fract_button, op_dwnload_buttton]:
                                 buttons.remove(button)
 
             elif event.type == pg.KEYDOWN:
@@ -297,8 +303,8 @@ def main():
         print(item)
 
     if get_fractal_clicked:
-        if user_named_fractal:
-            return [game_array, click_counter, temp_string]
+        if user_named_fractal(temp_string):
+            return [game_array, click_counter, temp_string, open_fractal]
         else:
             return [game_array, click_counter]
     else: 
@@ -313,12 +319,17 @@ if __name__ == '__main__':
 #---------------------------------------------------------------------
 # invoke Image_editor 
 if isinstance(game_output, list):
-    if len(game_output) == 3:
+    if len(game_output) == 4:
         image = Image.write_image(game_output[0], game_output[1], game_output[2])
         API.storeImage(image)
+        if game_output[3]:
+            subprocess.run(F'open -a "Google Chrome" ../images/{image}', shell=True)
     else: 
         image = Image.write_image(game_output[0], game_output[1])
         API.storeImage(image)
+
+    
+        # subprocess.run(F'open -a "Google Chrome" ../images/{image}', shell=True)
 
 
 # WORKS 
