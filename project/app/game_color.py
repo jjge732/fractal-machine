@@ -7,14 +7,18 @@ from colortile import ColorTile
 import pandas as pd 
 
 # colors of board pieces 
-WHITE        = pg.Color(255, 255, 255)
-BLACK        = pg.Color(0, 0, 0)
-GREY         = pg.Color(89, 89, 89)
-SCREEN_COLOR = BLACK
+WHITE          = pg.Color(255, 255, 255)
+BLACK          = pg.Color(0, 0, 0)
+GREY           = pg.Color(89, 89, 89)
+SCREEN_COLOR   = BLACK
+COLOR_INACTIVE = GREY
+COLOR_ACTIVE   = WHITE
 
 # other colors 
 RANDOM       = pg.Color(255, 175, 50)
-OTHER        = pg.Color(175, 175, 175)
+OTHER        = pg.Color(89, 89, 150)
+BUTTON_COLOR = OTHER
+
 
 # ---------------------------------------------------------------------
 # SETTING UP THE COLORS 
@@ -97,9 +101,9 @@ def main():
     SCREEN_HEIGHT = 900
     screen   = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     font     = pg.font.Font("Jelly Crazies.ttf", 25) 
-    text     = font.render('FRACTAL MACHINE', True, WHITE)
-    textRect = text.get_rect() 
-    textRect.center  = ((SCREEN_WIDTH / 2), 50) 
+    game_title             = font.render('FRACTAL MACHINE', True, WHITE)
+    game_title_rect        = game_title.get_rect() 
+    game_title_rect.center = ((SCREEN_WIDTH / 2), 50) 
 
     # creating the board 
     board_length     = 4
@@ -111,14 +115,17 @@ def main():
     button_y = 625
 
     # buttons that specify game functionality
-    buttons         = pg.sprite.Group()
-    three_by_three  = GameButton(         "3x3",       RANDOM,         button_x,             button_y) 
-    four_by_four    = GameButton(         "4x4",       RANDOM, (button_x + 228),             button_y)
-    invert_button   = GameButton(      "Invert",       RANDOM,         button_x,      (button_y + 52))
-    clear_button    = GameButton(       "Clear",       RANDOM, (button_x + 228),      (button_y + 52))
-    generate_button = GameButton(  "Fractalify",       RANDOM,         button_x,     (button_y + 104))
-    fractal_buttton = GameButton("Get Fractal!",       RANDOM, (button_x + 228),     (button_y + 104))
-    exit_button     = GameButton(        "EXIT", SCREEN_COLOR,                0, (SCREEN_HEIGHT - 50))  
+    buttons           = pg.sprite.Group()
+    three_by_three    = GameButton(         "3x3", BUTTON_COLOR,         button_x,             button_y) 
+    four_by_four      = GameButton(         "4x4", BUTTON_COLOR, (button_x + 228),             button_y)
+    invert_button     = GameButton(      "Invert", BUTTON_COLOR,         button_x,      (button_y + 52))
+    clear_button      = GameButton(       "Clear", BUTTON_COLOR, (button_x + 228),      (button_y + 52))
+    generate_button   = GameButton(  "Fractalify", BUTTON_COLOR,         button_x,     (button_y + 104))
+    fractal_buttton   = GameButton("Get Fractal!", BUTTON_COLOR, (button_x + 228),     (button_y + 104))
+    exit_button       = GameButton(        "EXIT", SCREEN_COLOR,                0, (SCREEN_HEIGHT - 50))  
+    
+    # not really a button, but a box on the Screen 
+    save_fract_button = GameButton("Save Fractal As: ", SCREEN_COLOR, 750, 175)    
 
 
     # change the font of the exit button to match the title 
@@ -131,6 +138,7 @@ def main():
     buttons.add( invert_button   )
     buttons.add( generate_button )
     buttons.add( exit_button     ) 
+    buttons.add(save_fract_button)
 
     # making the text box 
     # file_name_text_box = TextField(900, 200, 140, 32)
@@ -139,7 +147,8 @@ def main():
     click_counter       = 0
     get_fractal_clicked = False
     color_picked        = "None"
-    temp_string = "Hello"
+    text_box_active     = False
+    user_input_text     = ""
 
     # MAIN GAME LOOP 
     machine_running = True
@@ -161,14 +170,14 @@ def main():
                         chosen_color = GameButton("Current Color", color_picked, 50, (button_y + 52))
                         chosen_color.update_size(170,50)
                         # give user the option to go back to the original setting 
-                        white_setting = GameButton("Original B/W", BLACK, 50, (button_y + 104))
-                        white_setting.update_size(170,50)
+                        original_setting = GameButton("Original B/W", BLACK, 50, (button_y + 104))
+                        original_setting.update_size(170,50)
                         # that way there aren't a bilion "Color" buttons in the sprite group at once
                         for button in buttons:
                             if button.get_button_function() == "Color":
                                 buttons.remove(button)
                         buttons.add(chosen_color)
-                        buttons.add(white_setting)
+                        buttons.add(original_setting)
             			
                 # Iterate over the sprites in the group.
                 for sprite in sprites_to_board:
@@ -227,19 +236,17 @@ def main():
                         machine_running = False
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Original B/W"):
                         color_picked = WHITE
+                        buttons.remove(chosen_color)
+                        buttons.remove(original_setting)
 
                 # if file_name_text_box.rect.collidepoint(event.pos):
                 #     file_name_text_box.set_active()
                 # else: 
                 #     file_name_text_box.set_inactive()
             elif event.type == pg.KEYDOWN:
-                temp_string += str(event.unicode)
-                print(temp_string)
-                rect = pg.Rect(900, 900, 100, 30)
-                txt_surface = pg.font.Font(None, 32).render(temp_string, True, RANDOM)
-                screen.blit(txt_surface, (905, 905))
-                pg.draw.rect(screen, GREY, rect)
-                print("hi")
+                if text_box_active: 
+                    temp_string += str(event.unicode)
+                    print(temp_string)
             # elif event.type == pg.KEYDOWN:
             #     print("hey")
             #     # if file_name_text_box.get_active_status(): 
@@ -247,19 +254,18 @@ def main():
             #     file_name_text_box.user_typing(event)
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
-        # file_name_text_box.update()
         sprites_to_board.update()
         colors_to_board.update()
         buttons.update()
 
         # setting up the display 
         screen.fill(SCREEN_COLOR)
-        screen.blit(text, textRect)
-        pg.draw.rect(screen, GREY, (275,150,454,454))
+        screen.blit(game_title, game_title_rect)
+        pg.draw.rect(screen, GREY, (275,150,454,454)) 
         sprites_to_board.draw(screen)
         colors_to_board.draw(screen)
         buttons.draw(screen)
-        # file_name_text_box.draw(screen)
+
 
         # updates the whole display 
         pg.display.flip()

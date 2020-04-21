@@ -40,6 +40,16 @@ class GameButton(pg.sprite.Sprite):
         pg.draw.rect(self.image, self.color, [self.x_pos , self.y_pos, self.width, self.height])
         self.rect = self.image.get_rect(topleft = (self.x_pos, self.y_pos))
 
+    def user_typing(self, event):
+        if event.key == pg.K_BACKSPACE:
+            self.text = self.text[:-1]
+        else:
+            self.text += event.unicode
+        # render the text every time someone types something 
+        self.txt_surface = self.font.render(self.text, True, self.color)
+        self.width = max(200, self.txt_surface.get_width()+10)
+
+
     def update_function(self, new_text):
         self.width    = 225
         self.height   = 50 
@@ -78,4 +88,3 @@ class GameButton(pg.sprite.Sprite):
         self.image.blit(self.textSurf, [self.width/2 - W/2, self.height/2 - H/2])
         pg.draw.rect(self.image, self.color, [self.x_pos , self.y_pos, self.width, self.height])
         self.rect = self.image.get_rect(topleft = (self.x_pos, self.y_pos))
-
