@@ -3,6 +3,7 @@ from boardpiece import BoardPiece
 from gamebutton import GameButton
 from image_editor import Image
 from colortile import ColorTile
+from routes.aws import API 
 import pandas as pd 
 
 # main colors of the game 
@@ -135,11 +136,6 @@ def main():
     buttons.add( invert_button   )
     buttons.add( generate_button )
     buttons.add( exit_button     ) 
-    # buttons.add(name_fract_button)
-
-
-    # making the text box 
-    # file_name_text_box = TextField(900, 200, 140, 32)
 
     # setting up extra variables 
     click_counter       = 0
@@ -311,7 +307,11 @@ if __name__ == '__main__':
 # invoke Image_editor 
 if isinstance(game_output, list):
     if len(game_output) == 3:
-        Image.write_image(game_output[0], game_output[1], game_output[2])
+        image = Image.write_image(game_output[0], game_output[1], game_output[2])
+        API.storeImage(image)
     else: 
-        Image.write_image(game_output[0], game_output[1])
+        image = Image.write_image(game_output[0], game_output[1])
+        API.storeImage(image)
+
+print(API.retrieveListOfImageNames())
 

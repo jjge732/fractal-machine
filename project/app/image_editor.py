@@ -40,6 +40,8 @@ class Image:
         if image is not None:
             image.close()
             print(f"Image successfully written as {name.split('/')[-1]}")
+        
+        return name.split('/')[-1]
 
     @staticmethod
     def fractalate(color_list_list: List[List[List[str]]], degrees_of_fractility_list: List[int], square_side_length: int = None) -> str:
