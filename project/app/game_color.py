@@ -156,6 +156,7 @@ def main():
     temp_string         = ""
     open_fractal        = False
     show_five_recents   = False
+    # figure out to get most recent ones, it is showing last 5 
     five_recent_fracs   = API.retrieveListOfImageNames()[-5:]
     
     # Giving the game a title
