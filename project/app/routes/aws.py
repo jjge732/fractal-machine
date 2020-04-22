@@ -56,18 +56,14 @@ class API:
                 file_name: The name of the file to store in S3
      
         """
-        content_type_dict = {
-            "pdf": "application/pdf",
-            "svg": "image/svg+xml"
-        }
-        file_extension = file_name.split('.')[-1]
+        file_extension = file_name.split('.')[-1].lower()
 
-        if file_extension not in content_type_dict.keys():
+        if file_extension != "svg":
             raise TypeError(
-                f"The format of {file_name} was not recognized. Please only send a file of one of the following formats:\n{', '.join(content_type_dict.keys())}"
+                f"The format of {file_name} was not recognized. Please only send an svg file."
             )
         print(f"Attempting to store {file_name} in S3...")
-        file = open(f"{ROOT}/project/images/{file_name}")
+        file = open(f"{ROOT}/project/images/{file_name}", "r")
         response = requests.put(
             url=f"{URL}{file_name}",
             data=file,
