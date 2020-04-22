@@ -130,8 +130,10 @@ def main():
     download_button    = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
 
     # special button that allows users to view most recent button
-    view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 115) , 150)
-    view_recent_button.update_size(250, 50)
+    view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 90) , 150)
+    view_recent_button.update_size(300, 50)
+    view_recent_button.change_font_bg_color(BUTTON_COLOR, BLACK)
+    view_recent_button.change_font("Inlanders Demo.otf")
 
     # change the font and size of the exit button to match the title 
     exit_button.change_font("Inlanders Demo.otf")
@@ -169,8 +171,6 @@ def main():
 
             # If a mouse button was pressed.
             elif event.type == pg.MOUSEBUTTONDOWN:
-
-
                 # trying to let the user pick their color
                 for color_square in colors_to_board:
                     if color_square.rect.collidepoint(event.pos):
@@ -264,7 +264,9 @@ def main():
                         show_five_recents = not show_five_recents
                         if show_five_recents:
                             for frac, i in zip(five_recent_fracs, range(len(five_recent_fracs))):
-                                frac_button = GameButton(str(frac), BUTTON_COLOR, 952, (205 + (55 * i)))
+                                frac_button = GameButton(str(frac), BUTTON_COLOR, 952, (205 + (35 * i)))
+                                frac_button.update_size(225, 30)
+                                frac_button.change_font_bg_color(BUTTON_COLOR, BLACK)
                                 buttons.add(frac_button)
                         else:
                             for button in buttons:
@@ -292,6 +294,7 @@ def main():
                     else:
                         temp_string += event.unicode
                         name_fract_button.update_function(temp_string)
+
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()
