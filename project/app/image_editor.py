@@ -73,11 +73,10 @@ class Image:
 
         if degrees_of_fractility_list[0] > 2:
             return Image.fractalate([new_color_list, *color_list_list], [degrees_of_fractility_list[0] - 1, *degrees_of_fractility_list], square_side_length)
-
         return Image.create_svg_image_str(square_side_length, new_color_list, degrees_of_fractility_list[-1])
 
     @staticmethod
-    def create_svg_image_str(square_side_length: int, color_list: List, degrees_of_fractility: int) -> str:
+    def create_svg_image_str(square_side_length: int, color_list: List[List[str]], degrees_of_fractility: int) -> str:
         """Writes an image representation of the string using the final color list from the fractalate method
 
             Args:
@@ -90,14 +89,18 @@ class Image:
 
         """
         new_square_side_length = 500 * square_side_length
-        image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg">'
+        image_str = f'<svg width="{new_square_side_length}" height="{new_square_side_length}" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" style="fill:#FFF"/>'
 
         for x, color_sub_list in enumerate(color_list):
             for y, color in enumerate(color_sub_list):
-                dimensions = 500 / (square_side_length ** (degrees_of_fractility - 1))
-                x_index = x * dimensions
-                y_index = y * dimensions
-                image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'
+                if color in ["FFF", "FFFFFF"]:
+                    continue
+                for z in range(degrees_of_fractility):
+                    dimensions = 500 / (square_side_length ** z)
+                    x_index = x * dimensions
+                    y_index = y * dimensions
+                    image_str += f'<rect width="{dimensions}" height="{dimensions}" x="{x_index}" y="{y_index}" opacity="{.5}" style="fill:#{color};stroke-width:3;stroke:#FFF"/>'
+
         return f"{image_str}</svg>"
 
     @staticmethod
