@@ -14,6 +14,10 @@ Image.write_image([
    ["FFF", "D60", "D60"]
 ], 5, "aesthetically_pleasing")
 
+Image.convert_svg()
+Image.convert_svg(file_format="PNG")
+Image.convert_svg(file_format="JPG")
+
 
 # Image.color_code_to_pdf("000" "000" "FFF" "000" "FFF" "000" "FFF" "000" "000")
 
