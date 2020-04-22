@@ -134,7 +134,7 @@ def main():
     download_button   = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
 
     # special button that allows users to view most recent button
-    view_recent_button = GameButton("View Recent Fractalizations", LIGHT_GREY, (825 + 115) , 150)
+    view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 115) , 150)
     view_recent_button.update_size(250, 50)
     # change the font of the exit button to match the title 
     exit_button.change_font("Jelly Crazies.ttf")
@@ -154,7 +154,9 @@ def main():
     color_picked        = "None"
     text_box_active     = False
     temp_string         = ""
-    open_fractal = False
+    open_fractal        = False
+    show_five_recents   = False
+    five_recent_fracs   = API.retrieveListOfImageNames()[-5:]
     
     # Giving the game a title
     pg.display.set_caption('Fractal Machine')
@@ -248,7 +250,6 @@ def main():
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Download" or button.get_button_function() == "Open & Download"):
                         get_fractal_clicked = True 
                         if button.get_button_function() == "Open & Download":
-                            print("hello")
                             open_fractal = True
                         machine_running = False
                     # reset the colors to black and white 
@@ -261,6 +262,19 @@ def main():
                         buttons.remove(button)
                         name_fract_button = GameButton(" ", LIGHT_GREY, 1075, button_y)
                         buttons.add(name_fract_button)
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "View Recent Fractalizations"):
+                        show_five_recents = not show_five_recents
+                        if show_five_recents:
+                            for frac, i in zip(five_recent_fracs, range(len(five_recent_fracs))):
+                                frac_button = GameButton(frac, BUTTON_COLOR, 952, 205 + (55 * i))
+                                buttons.add(frac_button)
+                        else:
+                            for button in buttons:
+                                if button.get_button_function() in five_recent_fracs:
+                                    buttons.remove(button)
+                    # clicking file names and retrieving them 
+                    elif button.rect.collidepoint(event.pos) and (button.get_button_function() in five_recent_fracs):
+                        subprocess.run(F'open -a "Google Chrome" ../images/{button.get_button_function()}', shell=True)
                     # the clear button 
                     elif button.rect.collidepoint(event.pos) and (button.get_button_function() == "Clear"):
                         for sprite in sprites_to_board:
