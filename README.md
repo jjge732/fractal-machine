@@ -18,9 +18,9 @@ fractal-machine
 │    │   └── RGB_HEX.xlsx            --> storage of rgb and hex values 
 │    │   └── colortile.py            --> class that create the color tiles 
 │    │   └── colortile.py            --> class that create the color tiles 
-│    │	 └── routes 				 --> directory for aws functions
-│    │   		└── __init__.py      --> empty init file
-│    │   		└── __main__.py      --> used for testing aws functions 
+│    │	 └── routes 				         --> directory for aws functions
+│    │   		└── __init__.py          --> empty init file
+│    │   		└── __main__.py          --> used for testing aws functions 
 │    │	  	    └── aws.py           --> holds aws functions for storage capabilties  
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
