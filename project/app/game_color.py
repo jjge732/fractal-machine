@@ -103,7 +103,7 @@ def main():
     SCREEN_WIDTH  = 1400
     SCREEN_HEIGHT = 900
     screen   = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    font     = pg.font.Font("Jelly Crazies.ttf", 25) 
+    font     = pg.font.Font("Inlanders Demo.otf", 50) 
     game_title             = font.render('FRACTAL MACHINE', True, WHITE)
     game_title_rect        = game_title.get_rect() 
     game_title_rect.center = ((SCREEN_WIDTH / 2), 50) 
@@ -137,7 +137,8 @@ def main():
     view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 115) , 150)
     view_recent_button.update_size(250, 50)
     # change the font of the exit button to match the title 
-    exit_button.change_font("Jelly Crazies.ttf")
+    exit_button.change_font("Inlanders Demo.otf")
+    exit_button.update_size(100, 50)
 
     # add buttons to sprite group
     buttons.add( three_by_three     )
@@ -158,6 +159,7 @@ def main():
     show_five_recents   = False
     # figure out to get most recent ones, it is showing last 5 
     five_recent_fracs   = API.retrieveListOfImageNames()[-5:]
+    print(five_recent_fracs)
     
     # Giving the game a title
     pg.display.set_caption('Fractal Machine')
@@ -267,7 +269,7 @@ def main():
                         show_five_recents = not show_five_recents
                         if show_five_recents:
                             for frac, i in zip(five_recent_fracs, range(len(five_recent_fracs))):
-                                frac_button = GameButton(frac, BUTTON_COLOR, 952, 205 + (55 * i))
+                                frac_button = GameButton(str(frac), BUTTON_COLOR, 952, (205 + (55 * i)))
                                 buttons.add(frac_button)
                         else:
                             for button in buttons:

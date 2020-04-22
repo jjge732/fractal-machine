@@ -68,7 +68,7 @@ class GameButton(pg.sprite.Sprite):
         self.rect = self.image.get_rect(topleft = (self.x_pos, self.y_pos))
 
 
-    def change_font(self, font):
+    def change_font(self, new_font):
         self.font     = pg.font.Font("Jelly Crazies.ttf", 20) 
         self.textSurf = self.font.render(self.text, True, (255,255,255))
         self.image    = pg.Surface((self.width , self.height)) # size of the buttons 
