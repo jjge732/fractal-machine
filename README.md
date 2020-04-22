@@ -4,18 +4,24 @@
 ```
 fractal-machine
 ├── project                          --> directory for package
-│    ├── app                         --> directory for main functionality of GUI
+│    ├── app                         --> directory for main functionality of app 
 │    │   └── __init__.py             --> empty init file
 │    │   └── __main__.py             --> used for testing as of now
 │    │   └── boardpiece.py           --> class that creates boardpieces 
-│    │   └── game.py                 --> main file to run, is the main script for the GUI
+│    │   └── game.py                 --> old version of GUI with just b/w tiles 
 │    │   └── gamebutton.py           --> class that creates the buttons of the game 
 │    │   └── image_editor.py         --> mainly used for creating images in images directory
-│    │   └── Jelly\ Crazies.ttf      --> font used in the game
-│    │   └── game_color.py           --> (WIP) for the color editiion of game.py
-│    │   └── webscrap_forcolors.py   --> (WIP) for the color editiion of game.py
-│    │   └── RGB_HEX.xlsx            --> (WIP) for the color editiion of game.py
-│    │   └── colortile.py            --> (WIP) for the color editiion of game.py
+│    │   └── Inlanders Demo.otf      --> one of the fonts used in the game
+│    │   └── Jelly Crazies.ttf       --> font used for game.py, the inital version of the GUI
+│    │   └── game_color.py           --> / main file to run, is the main script for the GUI /
+│    │   └── webscrap_forcolors.py   --> web scrapping script to get color rgb and hex values
+│    │   └── RGB_HEX.xlsx            --> storage of rgb and hex values 
+│    │   └── colortile.py            --> class that create the color tiles 
+│    │   └── colortile.py            --> class that create the color tiles 
+│    │	 └── routes 				         --> directory for aws functions
+│    │   		└── __init__.py          --> empty init file 
+│    │   		└── __main__.py          --> used for testing aws functions 
+│    │	  	    └── aws.py           --> holds aws functions for storage capabilties  
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
 │    │   └── config.py               --> file for configuring connection to the database
@@ -36,7 +42,7 @@ fractal-machine
 │    └── __init__.py                 --> empty init file             
 ├── .gitignore                       --> basic gitignore
 ├── create_tables.py                 --> file for creating tables in the database
-├── main.py                          --> main file for running the app
+├── main.py                          --> used for testing 
 ├── README.md                        --> this file
 ├── requirements.txt                 --> states requirements of this project
 └── setup.py                         --> file for setting up the module

@@ -1,11 +1,12 @@
 import pygame as pg
-from boardpiece import BoardPiece
-from gamebutton import GameButton
-from image_editor import Image
-from colortile import ColorTile
-from routes.aws import API 
 import pandas as pd 
 import subprocess
+from boardpiece import BoardPiece
+from gamebutton import GameButton
+from colortile import ColorTile
+from image_editor import Image
+from routes.aws import API 
+
 
 # main colors of the game 
 WHITE        = pg.Color(255, 255, 255)
@@ -14,9 +15,6 @@ GREY         = pg.Color(89, 89, 89)
 LIGHT_GREY   = pg.Color(175, 175, 175)
 BUTTON_COLOR = pg.Color(89, 89, 150)
 SCREEN_COLOR = BLACK
-
-# other colors 
-RANDOM       = pg.Color(255, 175, 50)
 
 # ---------------------------------------------------------------------
 # SETTING UP THE COLOR BOARD
@@ -57,7 +55,7 @@ def makeBoard(length):
             sprites_to_board.add( BoardPiece( (x_start_coord + (x*101), y_start_coord + (y*101)) ) ) 
     return sprites_to_board
 
-#create a color board 
+# create a color board 
 def makeColorBoard(color_list):
     colors_to_board = pg.sprite.Group()
     x_start_coord   = 50
@@ -74,9 +72,8 @@ def get_color_str(color, color_dict):
     color      = str(color)
     return color_dict.get(color)
 
-# returns a 2-D array of the board, "000" for white, "FFF" for black 
+# returns a 2-D array of the board, the values are hex color codes 
 def get_board_array(sprites, board_length):
-    # colors are either (0, 0, 0, 255) or (255, 255, 255, 255)
     board_array = []
     inner_array = []
     counter     = 1
@@ -103,7 +100,7 @@ def main():
     SCREEN_WIDTH  = 1400
     SCREEN_HEIGHT = 900
     screen   = pg.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    font     = pg.font.Font("Jelly Crazies.ttf", 25) 
+    font     = pg.font.Font("Inlanders Demo.otf", 50) 
     game_title             = font.render('FRACTAL MACHINE', True, WHITE)
     game_title_rect        = game_title.get_rect() 
     game_title_rect.center = ((SCREEN_WIDTH / 2), 50) 
@@ -131,13 +128,17 @@ def main():
     name_fract_box     = GameButton("Enter Name of Fractal:", GREY, 825, button_y)
     name_fract_button  = GameButton(" ", GREY, 1075, button_y)
     op_dwnload_buttton = GameButton("Open & Download", BUTTON_COLOR, 825, (button_y + 55))
-    download_button   = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
+    download_button    = GameButton("Download", BUTTON_COLOR, 1075, (button_y + 55))
 
     # special button that allows users to view most recent button
-    view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 115) , 150)
-    view_recent_button.update_size(250, 50)
-    # change the font of the exit button to match the title 
-    exit_button.change_font("Jelly Crazies.ttf")
+    view_recent_button = GameButton("View Recent Fractalizations", BUTTON_COLOR, (825 + 90) , 150)
+    view_recent_button.update_size(300, 50)
+    view_recent_button.change_font_bg_color(BUTTON_COLOR, BLACK)
+    view_recent_button.change_font("Inlanders Demo.otf")
+
+    # change the font and size of the exit button to match the title 
+    exit_button.change_font("Inlanders Demo.otf")
+    exit_button.update_size(100, 50)
 
     # add buttons to sprite group
     buttons.add( three_by_three     )
@@ -156,8 +157,7 @@ def main():
     temp_string         = ""
     open_fractal        = False
     show_five_recents   = False
-    # figure out to get most recent ones, it is showing last 5 
-    five_recent_fracs   = API.retrieveListOfImageNames()[-5:]
+    five_recent_fracs   = API.retrieveMostRecentImages()
     
     # Giving the game a title
     pg.display.set_caption('Fractal Machine')
@@ -172,8 +172,6 @@ def main():
 
             # If a mouse button was pressed.
             elif event.type == pg.MOUSEBUTTONDOWN:
-
-
                 # trying to let the user pick their color
                 for color_square in colors_to_board:
                     if color_square.rect.collidepoint(event.pos):
@@ -185,7 +183,7 @@ def main():
                         # give user the option to go back to the original setting 
                         original_setting = GameButton("Original B/W", BLACK, 50, (button_y + 104))
                         original_setting.update_size(170,50)
-                        # that way there aren't a bilion "Color" buttons in the sprite group at once
+                        # that way there aren't a bilion "Color" and original b/w buttons in the sprite group at once
                         for button in buttons:
                             if button.get_button_function() == "Current Color": 
                                 buttons.remove(button)
@@ -198,7 +196,7 @@ def main():
                 for sprite in sprites_to_board:
                     # Check if the sprite's rect collides with the mouse pos.
                     if sprite.rect.collidepoint(event.pos):
-                        # Change the color.
+                        # Change the color, also restores the orignial b/w setting 
                         if color_picked == "None" or color_picked == BLACK or color_picked == WHITE:
                             if str(sprite.get_piece_color()) == "(255, 255, 255, 255)" or color_picked == BLACK:
                                 sprite.change_color(BLACK)
@@ -267,7 +265,9 @@ def main():
                         show_five_recents = not show_five_recents
                         if show_five_recents:
                             for frac, i in zip(five_recent_fracs, range(len(five_recent_fracs))):
-                                frac_button = GameButton(frac, BUTTON_COLOR, 952, 205 + (55 * i))
+                                frac_button = GameButton(str(frac), BUTTON_COLOR, 952, (205 + (35 * i)))
+                                frac_button.update_size(225, 30)
+                                frac_button.change_font_bg_color(BUTTON_COLOR, BLACK)
                                 buttons.add(frac_button)
                         else:
                             for button in buttons:
@@ -295,6 +295,7 @@ def main():
                     else:
                         temp_string += event.unicode
                         name_fract_button.update_function(temp_string)
+
 
         # sprites_to_board has to be updated before the screen.fill, also update buttons 
         sprites_to_board.update()
