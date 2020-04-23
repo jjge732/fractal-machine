@@ -33,6 +33,7 @@ class Image:
         while True:
             try:
                 name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else file_name}.svg"
+                print(name)
                 image = open(name, "x")
                 break
             except Exception:
@@ -123,5 +124,8 @@ class Image:
         else:
             renderPM.drawToFile(drawing, f"{ROOT}/project/images/{new_file_name}", fmt=file_format.upper())
         file.close()
+        
         print(f"Successfully converted {file_name} to {new_file_name}")
+
+        return new_file_name
 

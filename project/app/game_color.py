@@ -335,15 +335,18 @@ if __name__ == '__main__':
     pg.quit()
 #---------------------------------------------------------------------
 # invoke Image_editor 
+# in both instances of download, file is added as both svg file and pdf
 if isinstance(game_output, list):
     if len(game_output) == 4:
         image = Image.write_image(game_output[0], game_output[1], game_output[2])
         API.storeImage(image)
         if game_output[3]:
             subprocess.run(F'open -a "Google Chrome" ../images/{image}', shell=True)
+        svg_to_pdf = Image.convert_svg(image)
     else: 
         image = Image.write_image(game_output[0], game_output[1])
         API.storeImage(image)
+        svg_to_pdf = Image.convert_svg(image)
 
 # WORKS 
 # subprocess.run('open -a "Google Chrome" ../images/test-1-4x4.svg', shell=True)
