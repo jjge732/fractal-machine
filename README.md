@@ -5,8 +5,10 @@
 fractal-machine
 ├── project                          --> directory for package
 │    ├── app                         --> directory for main functionality of app 
-|    |   ├── routes                  --> directory for API
-|    |   |    └── aws.py             --> file containing API class for requests related to interactions with AWS
+│    │	 ├── routes 				         --> directory for aws functions
+│    │   |		└── __init__.py          --> empty init file 
+│    │   |		└── __main__.py          --> used for testing aws functions 
+│    │	 |   	└── aws.py               --> holds aws functions for storage capabilties
 │    │   └── __init__.py             --> empty init file
 │    │   └── __main__.py             --> used for testing as of now
 │    │   └── boardpiece.py           --> class that creates boardpieces 
@@ -19,11 +21,7 @@ fractal-machine
 │    │   └── webscrap_forcolors.py   --> web scrapping script to get color rgb and hex values
 │    │   └── RGB_HEX.xlsx            --> storage of rgb and hex values 
 │    │   └── colortile.py            --> class that create the color tiles 
-│    │   └── colortile.py            --> class that create the color tiles 
-│    │	 └── routes 				         --> directory for aws functions
-│    │   		└── __init__.py          --> empty init file 
-│    │   		└── __main__.py          --> used for testing aws functions 
-│    │	  	    └── aws.py           --> holds aws functions for storage capabilties  
+│    │   └── colortile.py            --> class that create the color tiles   
 │    ├── connection                  --> directory for connection to the postgres database
 │    │   └── __init__.py             --> empty init file
 │    │   └── config.py               --> file for configuring connection to the database
