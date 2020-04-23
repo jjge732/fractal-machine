@@ -5,6 +5,8 @@
 fractal-machine
 ├── project                          --> directory for package
 │    ├── app                         --> directory for main functionality of app 
+|    |   ├── routes                  --> directory for API
+|    |   |    └── aws.py             --> file containing API class for requests related to interactions with AWS
 │    │   └── __init__.py             --> empty init file
 │    │   └── __main__.py             --> used for testing as of now
 │    │   └── boardpiece.py           --> class that creates boardpieces 
@@ -50,48 +52,10 @@ fractal-machine
 
 ## Setup
 
-This app requires postgresql to run. To install with homebrew run:
-```bash
-brew install postgresql
-```
-To start postgres, run:
-```bash
-brew services start postgresql
-```
-And to stop it, run:
-```bash
-brew services stop postgresql
-```
-You will also need data in postgres. Run the following to enter postgres:
-```bash
-psql postgres
-```
-And the run:
-```sql
-CREATE DATABASE fractal_machine;
-CREATE ROLE postgres;
-ALTER ROLE postgres WITH LOGIN;
-```
-
 Before running, complete this step in order to generate the SVG file:
 The project needs to know its location in your file structure in order to run properly.
 To provide this information, add to your bash profile by running this command:
 ```bash
 echo "export FRACTAL_MACHINE_ROOT=$(pwd)" >> ~/.bash_profile
 source ~/.bash_profile
-```
-
-## TODO: (not necessarily all of the following)
-- tie GUI to backend - Completed. 
-- fix file conversion
-- export files to Downloads?
-- make more image file conversions?
-- finalize sql tables?
-- encryption for user passwords?
-
-## FAQ
-### How do I install homebrew?
-Run this command:
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 ```
