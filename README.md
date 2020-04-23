@@ -6,9 +6,9 @@ fractal-machine
 ├── project                          --> directory for package
 │    ├── app                         --> directory for main functionality of app 
 │    │	 ├── routes 				         --> directory for aws functions
-│    │   |		└── __init__.py          --> empty init file 
-│    │   |		└── __main__.py          --> used for testing aws functions 
-│    │	 |   	└── aws.py               --> holds aws functions for storage capabilties
+│    │   |	└── __init__.py          --> empty init file 
+│    │   |	└── __main__.py          --> used for testing aws functions 
+│    │	 |  └── aws.py               --> holds aws functions for storage capabilties
 │    │   └── __init__.py             --> empty init file
 │    │   └── __main__.py             --> used for testing as of now
 │    │   └── boardpiece.py           --> class that creates boardpieces 
