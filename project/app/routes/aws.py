@@ -75,6 +75,7 @@ class API:
             print(f"Successfully stored {file_name} in S3!")
         else:
             print(f"An error occurred with status code {response.status_code} and data:\n{response.content}")
+            raise Exception
 
     @staticmethod
     def _retrievalHelper() -> List[dict]:

@@ -328,11 +328,15 @@ def main():
         return "Not Activated" 
 
 # ---------------------------------------------------------------------
-# invoke main & pygame 
-if __name__ == '__main__':
+# invoke main & pygame
+def start():
     pg.init()
     game_output = main()
     pg.quit()
+
+if __name__ == '__main__':
+    start()
+
 #---------------------------------------------------------------------
 # invoke Image_editor 
 # in both instances of download, file is added as both svg file and pdf

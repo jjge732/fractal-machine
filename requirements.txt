@@ -1,5 +1,6 @@
-fpdf
+behave
 config
+fpdf
 pygame
 psycopg2
 psycopg2-binary

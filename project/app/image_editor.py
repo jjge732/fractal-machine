@@ -1,7 +1,6 @@
 import os
 from typing import List
 
-from fpdf import FPDF
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
 
@@ -33,12 +32,12 @@ class Image:
         while True:
             try:
                 name = f"{ROOT}/project/images/{f'{file_name}-{count}' if count != 0 else file_name}.svg"
-                print(name)
                 image = open(name, "x")
                 break
             except Exception:
                 count += 1
-        image_str = Image.fractalate([color_list], [degrees_of_fractility], square_side_length)
+        image_tuple = Image.fractalate([color_list], [degrees_of_fractility], square_side_length)
+        image_str = Image.create_svg_image_str(*image_tuple)
         image.write(image_str)
         if image is not None:
             image.close()
@@ -47,7 +46,11 @@ class Image:
         return name.split('/')[-1]
 
     @staticmethod
-    def fractalate(color_list_list: List[List[List[str]]], degrees_of_fractility_list: List[int], square_side_length: int = None) -> str:
+    def fractalate(
+            color_list_list: List[List[List[str]]],
+            degrees_of_fractility_list: List[int],
+            square_side_length: int = None
+    ) -> tuple:
         """Method for creating the new fractal
 
             Args:
@@ -76,7 +79,7 @@ class Image:
 
         if degrees_of_fractility_list[0] > 2:
             return Image.fractalate([new_color_list, *color_list_list], [degrees_of_fractility_list[0] - 1, *degrees_of_fractility_list], square_side_length)
-        return Image.create_svg_image_str(square_side_length, new_color_list, degrees_of_fractility_list[-1])
+        return square_side_length, new_color_list, degrees_of_fractility_list[-1]
 
     @staticmethod
     def create_svg_image_str(square_side_length: int, color_list: List[List[str]], degrees_of_fractility: int) -> str:
